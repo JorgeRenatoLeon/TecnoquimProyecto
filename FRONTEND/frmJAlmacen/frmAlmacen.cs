@@ -14,9 +14,11 @@ namespace LP2TECNOQUIMFRONT.frmJAlmacen
 {
     public partial class frmAlmacen : Form
     {
+        Service.trabajador trabajador = new Service.trabajador();
         int close = 0;
-        public frmAlmacen(int cont = 0, string usuario = "")
+        public frmAlmacen(int cont = 0, Service.trabajador trabajadors = null)
         {
+            this.trabajador = trabajadors;
             if (cont != 0)
             {
                 InitializeComponent();
@@ -31,7 +33,7 @@ namespace LP2TECNOQUIMFRONT.frmJAlmacen
 
                 InitializeComponent();
 
-                MessageBox.Show("Bienvenido " + usuario);
+                MessageBox.Show("Bienvenido/a " + trabajador.nombres + " " + trabajador.apellidos);
 
                 t.Abort();
             }
@@ -63,23 +65,23 @@ namespace LP2TECNOQUIMFRONT.frmJAlmacen
         {
             this.Visible = false;
             frmProducto formProducto = new frmProducto();
-            formProducto.Visible = true;
-            close = 1;
-            this.Close();
+            formProducto.ShowDialog();
+            this.Show();
         }
 
         private void btnInsumos_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             frmInsumo formInsumo = new frmInsumo();
-            formInsumo.Visible = true;
-            close = 1;
-            this.Close();
+            formInsumo.ShowDialog();
+            this.Show(); 
         }
 
         private void frmAlmacen_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (close == 0) { Environment.Exit(0); }
         }
+
+        
     }
 }

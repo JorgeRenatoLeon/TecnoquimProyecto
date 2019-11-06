@@ -14,9 +14,11 @@ namespace LP2TECNOQUIMFRONT.frmJVenta
 {
     public partial class frmJVenta : Form
     {
+        Service.trabajador trabajador = new Service.trabajador();
         int close = 0;
-        public frmJVenta(int cont=0, string usuario = "")
+        public frmJVenta(int cont=0, Service.trabajador trabajadors = null)
         {
+            this.trabajador = trabajadors;
             if (cont != 0)
             {
                 InitializeComponent();
@@ -31,7 +33,7 @@ namespace LP2TECNOQUIMFRONT.frmJVenta
 
                 InitializeComponent();
 
-                MessageBox.Show("Bienvenido " + usuario);
+                MessageBox.Show("Bienvenido/a " + trabajador.nombres + " " + trabajador.apellidos);
 
                 t.Abort();
             }
@@ -69,36 +71,10 @@ namespace LP2TECNOQUIMFRONT.frmJVenta
             if (close == 0) { Environment.Exit(0); }
         }
 
-        private void btnNuevo_Click(object sender, EventArgs e)
+        private void btnPMS_Click(object sender, EventArgs e)
         {
-            frmRegistrarProyeccionVenta formRegistro = new frmRegistrarProyeccionVenta();
+            frmGestionarProyeccionVenta formRegistro = new frmGestionarProyeccionVenta();
             formRegistro.Visible = true;
-        }
-
-        private void btnSeleccionar_Click(object sender, EventArgs e)
-        {
-            frmRegistrarProyeccionVenta formRegistro = new frmRegistrarProyeccionVenta();
-            formRegistro.Visible = true;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgvHistorialPlan_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

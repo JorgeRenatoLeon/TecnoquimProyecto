@@ -15,13 +15,15 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
 {
     public partial class frmJMaquinaria : Form
     {
+        Service.trabajador trabajador = new Service.trabajador();
         Service.maquinaria maquinaria;
         Service.ServicioClient DBController = new Service.ServicioClient();
         Estado estadoObj;
 
         int close;
-        public frmJMaquinaria(int cont = 0, string usuario = "")
+        public frmJMaquinaria(int cont = 0, Service.trabajador trabajadors = null)
         {
+            this.trabajador = trabajadors;
             if (cont != 0)
             {
                 InitializeComponent();
@@ -33,7 +35,7 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
                 Thread.Sleep(2500);
                 InitializeComponent();
 
-                MessageBox.Show("Bienvenido " + usuario);
+                MessageBox.Show("Bienvenido/a " + trabajador.nombres + " " + trabajador.apellidos);
 
                 t.Abort();
             }
@@ -44,11 +46,7 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
         {
             Application.Run(new frmSplash());
         }
-
-        private void btnInicio_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void btnPerfil_Click(object sender, EventArgs e)
         {
@@ -68,10 +66,6 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
             this.Close();
         }
 
-        private void btnRegistrar_Click(object sender, EventArgs e)
-        {
-           
-        }
 
         private void frmJMaquinaria_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -84,43 +78,43 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
             formRegistro.Visible = true;
         }
 
-        private void btnSeleccionar_Click(object sender, EventArgs e)
-        {
-            frmMaquinaria formRegistro = new frmMaquinaria();
-            formRegistro.Visible = true;
-        }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
-            estadoObj = Estado.Modificar;
-            estadoComponentes(Estado.Modificar);
+            frmMaquinaria formMaquinaria = new frmMaquinaria();
+            if (formMaquinaria.ShowDialog() == DialogResult.OK)
+            {
+                maquinaria = formMaquinaria.MaquinariaSeleccionada;
+                txtNOrden.Text = maquinaria.id.ToString();
+                txtNombre.Text= maquinaria.nombre;
+                txtTipo.Text=maquinaria.tipo;
+            }
+            estadoComponentes(Estado.Buscar);
         }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            frmMaquinaria formGestion = new frmMaquinaria();
-            formGestion.Visible = true;
-            this.Visible = false;
-        }
-
+        
         private void guardarToolStripButton_Click(object sender, EventArgs e)
         {
             maquinaria = new Service.maquinaria();
             maquinaria.nombre = txtNombre.Text;
-            maquinaria.id = Int32.Parse(txtNOrden.Text);
             maquinaria.tipo = txtTipo.Text;
             if (estadoObj == Estado.Nuevo)
             {
-                MessageBox.Show("Maquinaria Registrada Satisfactoriamente", "Mensaje Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DBController.insertarMaquinaria(maquinaria);
+                MessageBox.Show("Maquinaria Registrada Satisfactoriamente", "Mensaje Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (estadoObj == Estado.Modificar) 
             {
+                maquinaria.id =int.Parse(txtNOrden.Text);
                 DBController.actualizarMaquinaria(maquinaria);
                 MessageBox.Show("Maquinaria Actualizada Satisfactoriamente", "Mensaje Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             estadoComponentes(Estado.Inicial);
             
+        }
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            estadoObj = Estado.Modificar;
+            estadoComponentes(Estado.Modificar);
         }
 
         private void nuevoToolStripButton_Click(object sender, EventArgs e)
@@ -144,7 +138,7 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
                     btnNuevo.Enabled = true;
                     btnModificar.Enabled = false;
                     btnGuardar.Enabled = false;
-                    btnCancelar.Enabled = false;
+                    btnEliminar.Enabled = false;
                     btnBuscar.Enabled = true;
                     //Campos de Texto
                     txtNOrden.Enabled = false;
@@ -160,7 +154,7 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
                     btnNuevo.Enabled = false;
                     btnGuardar.Enabled = true;
                     btnModificar.Enabled = false;
-                    btnCancelar.Enabled = true;
+                    btnEliminar.Enabled = true;
                     btnBuscar.Enabled = false;
                     //Campos de Texto
                     txtNOrden.Enabled = true;
@@ -172,7 +166,7 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
                     btnNuevo.Enabled = false;
                     btnModificar.Enabled = true;
                     btnGuardar.Enabled = false;
-                    btnCancelar.Enabled = true;
+                    btnEliminar.Enabled = true;
                     btnBuscar.Enabled = false;
                     break;
                 case Estado.Modificar:
@@ -184,7 +178,7 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
                     btnNuevo.Enabled = false;
                     btnGuardar.Enabled = true;
                     btnModificar.Enabled = false;
-                    btnCancelar.Enabled = true;
+                    btnEliminar.Enabled = true;
                     btnBuscar.Enabled = false;
                     //Campos de Texto
                     txtNOrden.Enabled = true;
@@ -200,11 +194,22 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
             txtNombre.Text = "";
             txtTipo.Text = "";
         }
-
+        
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             limpiarComponentes();
             estadoComponentes(Estado.Inicial);
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            DBController.eliminarMaquinaria(int.Parse(txtNOrden.Text));
+            MessageBox.Show("Maquinaria Eliminada Satisfactoriamente", "Mensaje Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            limpiarComponentes();
+            estadoObj = Estado.Inicial;
+            estadoComponentes(Estado.Inicial);
+        }
+
+        
     }
 }

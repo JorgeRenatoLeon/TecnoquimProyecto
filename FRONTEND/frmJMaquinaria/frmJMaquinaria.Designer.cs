@@ -47,6 +47,7 @@
             this.btnModificar = new System.Windows.Forms.ToolStripButton();
             this.btnGuardar = new System.Windows.Forms.ToolStripButton();
             this.btnBuscar = new System.Windows.Forms.ToolStripButton();
+            this.btnEliminar = new System.Windows.Forms.ToolStripButton();
             this.btnCancelar = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -81,7 +82,7 @@
             this.btnPerfil.Name = "btnPerfil";
             this.btnPerfil.Size = new System.Drawing.Size(163, 79);
             this.btnPerfil.TabIndex = 6;
-            this.btnPerfil.Text = "Perfil";
+            this.btnPerfil.Text = "Jefe de Mantenimiento";
             this.btnPerfil.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnPerfil.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPerfil.UseVisualStyleBackColor = true;
@@ -121,7 +122,6 @@
             this.btnInicio.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnInicio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnInicio.UseVisualStyleBackColor = true;
-            this.btnInicio.Click += new System.EventHandler(this.btnInicio_Click);
             // 
             // panel3
             // 
@@ -200,6 +200,7 @@
             this.txtNOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNOrden.Location = new System.Drawing.Point(220, 44);
             this.txtNOrden.Name = "txtNOrden";
+            this.txtNOrden.ReadOnly = true;
             this.txtNOrden.Size = new System.Drawing.Size(187, 29);
             this.txtNOrden.TabIndex = 20;
             // 
@@ -220,6 +221,7 @@
             this.btnModificar,
             this.btnGuardar,
             this.btnBuscar,
+            this.btnEliminar,
             this.btnCancelar});
             this.toolStrip1.Location = new System.Drawing.Point(166, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -245,7 +247,7 @@
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(116, 32);
             this.btnModificar.Text = "Modificar";
-            this.btnModificar.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnGuardar
             // 
@@ -265,7 +267,17 @@
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(88, 32);
             this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
+            this.btnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(102, 32);
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnCancelar
             // 
@@ -336,6 +348,7 @@
         private System.Windows.Forms.ToolStripButton btnGuardar;
         private System.Windows.Forms.ToolStripButton btnBuscar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripButton btnEliminar;
         private System.Windows.Forms.ToolStripButton btnCancelar;
     }
 }

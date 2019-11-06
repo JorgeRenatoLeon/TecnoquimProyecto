@@ -22,7 +22,7 @@ namespace LP2TECNOQUIMFRONT.frmGerente
 
                 t.Start();
 
-                Thread.Sleep(2500);
+                Thread.Sleep(1250);
 
                 InitializeComponent();
 
@@ -53,7 +53,7 @@ namespace LP2TECNOQUIMFRONT.frmGerente
         private void btnNotificaciones_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            frmNotificaciones formNot = new frmNotificaciones();
+            frmNotificaciones formNot = new frmNotificaciones(trabajador);
             formNot.Visible = true;
             close = 1;
             this.Close();

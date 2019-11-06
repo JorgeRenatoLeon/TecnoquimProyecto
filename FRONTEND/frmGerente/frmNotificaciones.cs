@@ -31,7 +31,7 @@ namespace LP2TECNOQUIMFRONT.frmGerente
         private void btnHome_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            frmGerente formHome = new frmGerente();
+            frmGerente formHome = new frmGerente(1,this.trabajador);
             formHome.Visible = true;
             close = 1;
             this.Close();
@@ -40,7 +40,7 @@ namespace LP2TECNOQUIMFRONT.frmGerente
         private void btnPerfil_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            frmPerfil formPerfil = new frmPerfil();
+            frmPerfil formPerfil = new frmPerfil(this.trabajador);
             formPerfil.Visible = true;
             close = 1;
             this.Close();

@@ -44,7 +44,7 @@ namespace LP2TECNOQUIMFRONT.frmGerente
         private void btnPerfil_Click_1(object sender, EventArgs e)
         {
             this.Visible = false;
-            frmPerfil formPerfil = new frmPerfil();
+            frmPerfil formPerfil = new frmPerfil(this.trabajador);
             formPerfil.Visible = true;
             close = 1;
             this.Close();

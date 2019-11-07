@@ -148,6 +148,7 @@
             this.lblBack.TabStop = true;
             this.lblBack.Text = "Cerrar Sesión";
             this.lblBack.VisitedLinkColor = System.Drawing.Color.SteelBlue;
+            this.lblBack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblBack_LinkClicked);
             // 
             // btnGuardar
             // 
@@ -163,6 +164,7 @@
             this.btnGuardar.TabIndex = 80;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // txtDNI
             // 

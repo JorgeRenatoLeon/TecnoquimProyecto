@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtLote = new System.Windows.Forms.TextBox();
+            this.lblnlote = new System.Windows.Forms.Label();
             this.cbAlmacen = new System.Windows.Forms.ComboBox();
             this.lblIdInstructivo = new System.Windows.Forms.Label();
             this.lblAct = new System.Windows.Forms.Label();
@@ -51,6 +53,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtLote);
+            this.groupBox2.Controls.Add(this.lblnlote);
             this.groupBox2.Controls.Add(this.cbAlmacen);
             this.groupBox2.Controls.Add(this.lblIdInstructivo);
             this.groupBox2.Controls.Add(this.lblAct);
@@ -64,10 +68,29 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Almacen";
             // 
+            // txtLote
+            // 
+            this.txtLote.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.txtLote.Location = new System.Drawing.Point(138, 86);
+            this.txtLote.Name = "txtLote";
+            this.txtLote.Size = new System.Drawing.Size(132, 30);
+            this.txtLote.TabIndex = 83;
+            // 
+            // lblnlote
+            // 
+            this.lblnlote.AutoSize = true;
+            this.lblnlote.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblnlote.ForeColor = System.Drawing.Color.White;
+            this.lblnlote.Location = new System.Drawing.Point(35, 89);
+            this.lblnlote.Name = "lblnlote";
+            this.lblnlote.Size = new System.Drawing.Size(96, 25);
+            this.lblnlote.TabIndex = 82;
+            this.lblnlote.Text = "No. Lote: ";
+            // 
             // cbAlmacen
             // 
             this.cbAlmacen.FormattingEnabled = true;
-            this.cbAlmacen.Location = new System.Drawing.Point(180, 30);
+            this.cbAlmacen.Location = new System.Drawing.Point(147, 33);
             this.cbAlmacen.Name = "cbAlmacen";
             this.cbAlmacen.Size = new System.Drawing.Size(267, 33);
             this.cbAlmacen.TabIndex = 79;
@@ -88,7 +111,7 @@
             this.lblAct.AutoSize = true;
             this.lblAct.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAct.ForeColor = System.Drawing.Color.White;
-            this.lblAct.Location = new System.Drawing.Point(36, 89);
+            this.lblAct.Location = new System.Drawing.Point(363, 94);
             this.lblAct.Name = "lblAct";
             this.lblAct.Size = new System.Drawing.Size(73, 25);
             this.lblAct.TabIndex = 36;
@@ -97,7 +120,7 @@
             // txtAct
             // 
             this.txtAct.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.txtAct.Location = new System.Drawing.Point(180, 86);
+            this.txtAct.Location = new System.Drawing.Point(452, 89);
             this.txtAct.Name = "txtAct";
             this.txtAct.Size = new System.Drawing.Size(132, 30);
             this.txtAct.TabIndex = 37;
@@ -199,7 +222,8 @@
             this.txtNomProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.txtNomProd.Location = new System.Drawing.Point(180, 89);
             this.txtNomProd.Name = "txtNomProd";
-            this.txtNomProd.Size = new System.Drawing.Size(487, 30);
+            this.txtNomProd.ReadOnly = true;
+            this.txtNomProd.Size = new System.Drawing.Size(353, 30);
             this.txtNomProd.TabIndex = 35;
             // 
             // txtPres
@@ -207,7 +231,8 @@
             this.txtPres.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.txtPres.Location = new System.Drawing.Point(183, 137);
             this.txtPres.Name = "txtPres";
-            this.txtPres.Size = new System.Drawing.Size(264, 30);
+            this.txtPres.ReadOnly = true;
+            this.txtPres.Size = new System.Drawing.Size(154, 30);
             this.txtPres.TabIndex = 38;
             // 
             // label1
@@ -293,5 +318,7 @@
         private System.Windows.Forms.Button btnBuscarInsumo;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.LinkLabel lblBack;
+        private System.Windows.Forms.TextBox txtLote;
+        private System.Windows.Forms.Label lblnlote;
     }
 }

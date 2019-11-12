@@ -34,10 +34,10 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblNombre = new System.Windows.Forms.Label();
             this.dgvProductos = new System.Windows.Forms.DataGridView();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Presentacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Granularidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Restriccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Granularidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Presentacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,19 +110,12 @@
             this.dgvProductos.TabIndex = 30;
             this.dgvProductos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvProductos_CellFormatting);
             // 
-            // Nombre
+            // Restriccion
             // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            this.Nombre.Width = 200;
-            // 
-            // Presentacion
-            // 
-            this.Presentacion.HeaderText = "Presentacion";
-            this.Presentacion.Name = "Presentacion";
-            this.Presentacion.ReadOnly = true;
-            this.Presentacion.Width = 280;
+            this.Restriccion.HeaderText = "Restriccion";
+            this.Restriccion.Name = "Restriccion";
+            this.Restriccion.ReadOnly = true;
+            this.Restriccion.Width = 160;
             // 
             // Granularidad
             // 
@@ -131,12 +124,19 @@
             this.Granularidad.ReadOnly = true;
             this.Granularidad.Width = 160;
             // 
-            // Restriccion
+            // Presentacion
             // 
-            this.Restriccion.HeaderText = "Restriccion";
-            this.Restriccion.Name = "Restriccion";
-            this.Restriccion.ReadOnly = true;
-            this.Restriccion.Width = 160;
+            this.Presentacion.HeaderText = "Presentacion";
+            this.Presentacion.Name = "Presentacion";
+            this.Presentacion.ReadOnly = true;
+            this.Presentacion.Width = 280;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            this.Nombre.Width = 200;
             // 
             // frmProductos
             // 

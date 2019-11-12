@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbDatos = new System.Windows.Forms.GroupBox();
+            this.btnBuscarInsumo = new System.Windows.Forms.Button();
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -39,11 +40,12 @@
             this.txtCant = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtLote = new System.Windows.Forms.TextBox();
+            this.lblnlote = new System.Windows.Forms.Label();
             this.cbAlmacen = new System.Windows.Forms.ComboBox();
             this.lblIdInstructivo = new System.Windows.Forms.Label();
             this.lblAct = new System.Windows.Forms.Label();
             this.txtAct = new System.Windows.Forms.TextBox();
-            this.btnBuscarInsumo = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.lblBack = new System.Windows.Forms.LinkLabel();
             this.gbDatos.SuspendLayout();
@@ -70,6 +72,22 @@
             this.gbDatos.TabStop = false;
             this.gbDatos.Text = "Datos Generales";
             // 
+            // btnBuscarInsumo
+            // 
+            this.btnBuscarInsumo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscarInsumo.BackColor = System.Drawing.Color.White;
+            this.btnBuscarInsumo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscarInsumo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarInsumo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(58)))), ((int)(((byte)(103)))));
+            this.btnBuscarInsumo.Location = new System.Drawing.Point(332, 42);
+            this.btnBuscarInsumo.Name = "btnBuscarInsumo";
+            this.btnBuscarInsumo.Size = new System.Drawing.Size(52, 30);
+            this.btnBuscarInsumo.TabIndex = 74;
+            this.btnBuscarInsumo.Text = "...";
+            this.btnBuscarInsumo.UseVisualStyleBackColor = false;
+            this.btnBuscarInsumo.Click += new System.EventHandler(this.btnBuscarInsumo_Click);
+            // 
             // txtCodigo
             // 
             this.txtCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
@@ -95,6 +113,7 @@
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.txtNombre.Location = new System.Drawing.Point(139, 98);
             this.txtNombre.Name = "txtNombre";
+            this.txtNombre.ReadOnly = true;
             this.txtNombre.Size = new System.Drawing.Size(365, 30);
             this.txtNombre.TabIndex = 57;
             // 
@@ -112,8 +131,9 @@
             // txtUnidad
             // 
             this.txtUnidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.txtUnidad.Location = new System.Drawing.Point(357, 159);
+            this.txtUnidad.Location = new System.Drawing.Point(357, 154);
             this.txtUnidad.Name = "txtUnidad";
+            this.txtUnidad.ReadOnly = true;
             this.txtUnidad.Size = new System.Drawing.Size(88, 30);
             this.txtUnidad.TabIndex = 62;
             // 
@@ -144,6 +164,7 @@
             this.txtCant.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.txtCant.Location = new System.Drawing.Point(139, 156);
             this.txtCant.Name = "txtCant";
+            this.txtCant.ReadOnly = true;
             this.txtCant.Size = new System.Drawing.Size(88, 30);
             this.txtCant.TabIndex = 59;
             // 
@@ -161,6 +182,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtLote);
+            this.groupBox2.Controls.Add(this.lblnlote);
             this.groupBox2.Controls.Add(this.cbAlmacen);
             this.groupBox2.Controls.Add(this.lblIdInstructivo);
             this.groupBox2.Controls.Add(this.lblAct);
@@ -174,10 +197,29 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Almacen";
             // 
+            // txtLote
+            // 
+            this.txtLote.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.txtLote.Location = new System.Drawing.Point(139, 85);
+            this.txtLote.Name = "txtLote";
+            this.txtLote.Size = new System.Drawing.Size(132, 30);
+            this.txtLote.TabIndex = 81;
+            // 
+            // lblnlote
+            // 
+            this.lblnlote.AutoSize = true;
+            this.lblnlote.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblnlote.ForeColor = System.Drawing.Color.White;
+            this.lblnlote.Location = new System.Drawing.Point(36, 88);
+            this.lblnlote.Name = "lblnlote";
+            this.lblnlote.Size = new System.Drawing.Size(96, 25);
+            this.lblnlote.TabIndex = 80;
+            this.lblnlote.Text = "No. Lote: ";
+            // 
             // cbAlmacen
             // 
             this.cbAlmacen.FormattingEnabled = true;
-            this.cbAlmacen.Location = new System.Drawing.Point(180, 30);
+            this.cbAlmacen.Location = new System.Drawing.Point(139, 30);
             this.cbAlmacen.Name = "cbAlmacen";
             this.cbAlmacen.Size = new System.Drawing.Size(267, 33);
             this.cbAlmacen.TabIndex = 79;
@@ -198,7 +240,7 @@
             this.lblAct.AutoSize = true;
             this.lblAct.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAct.ForeColor = System.Drawing.Color.White;
-            this.lblAct.Location = new System.Drawing.Point(36, 89);
+            this.lblAct.Location = new System.Drawing.Point(327, 88);
             this.lblAct.Name = "lblAct";
             this.lblAct.Size = new System.Drawing.Size(73, 25);
             this.lblAct.TabIndex = 36;
@@ -207,26 +249,10 @@
             // txtAct
             // 
             this.txtAct.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.txtAct.Location = new System.Drawing.Point(180, 86);
+            this.txtAct.Location = new System.Drawing.Point(421, 85);
             this.txtAct.Name = "txtAct";
             this.txtAct.Size = new System.Drawing.Size(132, 30);
             this.txtAct.TabIndex = 37;
-            // 
-            // btnBuscarInsumo
-            // 
-            this.btnBuscarInsumo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBuscarInsumo.BackColor = System.Drawing.Color.White;
-            this.btnBuscarInsumo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscarInsumo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarInsumo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(58)))), ((int)(((byte)(103)))));
-            this.btnBuscarInsumo.Location = new System.Drawing.Point(332, 42);
-            this.btnBuscarInsumo.Name = "btnBuscarInsumo";
-            this.btnBuscarInsumo.Size = new System.Drawing.Size(52, 30);
-            this.btnBuscarInsumo.TabIndex = 74;
-            this.btnBuscarInsumo.Text = "...";
-            this.btnBuscarInsumo.UseVisualStyleBackColor = false;
-            this.btnBuscarInsumo.Click += new System.EventHandler(this.btnBuscarInsumo_Click);
             // 
             // btnGuardar
             // 
@@ -300,5 +326,7 @@
         private System.Windows.Forms.Button btnBuscarInsumo;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.LinkLabel lblBack;
+        private System.Windows.Forms.Label lblnlote;
+        private System.Windows.Forms.TextBox txtLote;
     }
 }

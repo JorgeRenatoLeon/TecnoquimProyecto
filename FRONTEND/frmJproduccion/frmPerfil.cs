@@ -38,7 +38,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
         private void button4_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            frmConsultas formConsultas = new frmConsultas();
+            frmConsultas formConsultas = new frmConsultas(this.trabajador);
             formConsultas.Visible = true;
             close = 1;
             this.Close();
@@ -74,7 +74,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             trabajador.apellidos = txtApellido.Text;
             trabajador.correo = txtCorreo.Text;
             DBController.actualizarTrabajador(trabajador);
-            MessageBox.Show("Maquinaria Registrada Satisfactoriamente", "Mensaje Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Correo cambiado Satisfactoriamente", "Mensaje Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

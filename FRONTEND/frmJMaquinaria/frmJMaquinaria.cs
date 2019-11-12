@@ -83,12 +83,21 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             frmMaquinaria formMaquinaria = new frmMaquinaria();
-            if (formMaquinaria.ShowDialog() == DialogResult.OK)
+            if (formMaquinaria.ShowDialog(this) == DialogResult.OK)
             {
                 maquinaria = formMaquinaria.MaquinariaSeleccionada;
                 txtNOrden.Text = maquinaria.id.ToString();
                 txtNombre.Text= maquinaria.nombre;
                 txtTipo.Text=maquinaria.tipo;
+
+                if (detalle.activo == true)
+                {
+                    rbActivo.Checked = true;
+                }
+                else
+                {
+                    rbInactivo.Checked = true;
+                }
             }
             estadoComponentes(Estado.Buscar);
         }

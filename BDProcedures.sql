@@ -894,3 +894,13 @@ END$
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------#
+
+CREATE PROCEDURE LISTAR_INSUMO_INS(
+	IN _FK_ID_INS INT
+)
+BEGIN
+	SELECT * FROM INSUMO 
+    INNER JOIN INSTRUCTIVO 
+    ON INSTRUCTIVO.FK_ID_PROD = INSUMO.ID_INSUMO
+    WHERE INSTRUCTIVO.ID_INSTRUCTIVO = _FK_ID_INS;
+END$

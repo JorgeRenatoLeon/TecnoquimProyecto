@@ -37,7 +37,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             lineasEliminadas = new BindingList<lineaOrden>();
             lineaOrden = new lineaOrden();
             _orderProduccion = new ordenProduccion();
-            dgvOrden.AutoGenerateColumns = false;
+            dgvOrdenProduccion.AutoGenerateColumns = false;
         }
 
         public frmGestionarOrden(DateTime periodoPlanMaestroProduccion, int idPlanMaestroProduccion)
@@ -73,12 +73,15 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     lblNOrden.Enabled = false;
 
                     //DataGridView
-                    dgvOrden.Enabled = false;
+                    dgvOrdenProduccion.Enabled = false;
 
                     //Grupos
                     gbDatosGenerales.Enabled = false;
                     gbDetalleOrden.Enabled = false;
-                    gbDatosOrden.Enabled = false;
+                    gbDatosOrden.Enabled = true;
+                    txtNOrden.Enabled = false;
+                    dtpOrden.Enabled = false;
+                    btnOrdenes.Enabled = true;
 
                     //Asignar el estado
                     estadoFormulario = estado;
@@ -106,7 +109,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     lblNOrden.Enabled = true;
 
                     //DataGridView
-                    dgvOrden.Enabled = true;
+                    dgvOrdenProduccion.Enabled = true;
 
                     //Grupos
                     gbDatosGenerales.Enabled = true;
@@ -119,31 +122,37 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                 case Estado.Buscar:
 
                     //Botones
-                    btnNuevo.Enabled = false;
+                    btnNuevo.Enabled = true;
                     btnGuardar.Enabled = false;
                     btnModificar.Enabled = true;
                     btnCancelar.Enabled = true;
 
                     // Cajas de texto
                     txtNOrden.Enabled = false;
-                    txtNombre.Enabled = true;
+                    txtNombre.Enabled = false;
                     txtCodigoProducto.Enabled = false;
-                    txtCantidad.Enabled = true;
+                    txtCantidad.Enabled = false;
 
                     //Etiquetas
-                    lblFecha.Enabled = true;
-                    lblCodigoProducto.Enabled = true;
-                    lblCantidadDetalle.Enabled = true;
-                    lblNombreProducto.Enabled = true;
-                    lblNOrden.Enabled = true;
+                    lblFecha.Enabled = false;
+                    lblCodigoProducto.Enabled = false;
+                    lblCantidadDetalle.Enabled = false;
+                    lblNombreProducto.Enabled = false;
+                    lblNOrden.Enabled = false;
 
                     //DataGridView
-                    dgvOrden.Enabled = true;
+                    dgvOrdenProduccion.Enabled = false;
 
                     //Grupos
-                    gbDatosGenerales.Enabled = true;
-                    gbDetalleOrden.Enabled = true;
+                    gbDatosGenerales.Enabled = false;
+                    gbDetalleOrden.Enabled = false;
                     gbDatosOrden.Enabled = true;
+                    txtNOrden.Enabled = false;
+                    dtpOrden.Enabled = false;
+                    btnOrdenes.Enabled = true;
+
+                    //Asignar el estado
+                    estadoFormulario = estado;
 
                     break;
                 case Estado.Modificar:
@@ -168,7 +177,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     lblNOrden.Enabled = true;
 
                     //DataGridView
-                    dgvOrden.Enabled = true;
+                    dgvOrdenProduccion.Enabled = true;
 
                     //Grupos
                     gbDatosGenerales.Enabled = true;
@@ -187,9 +196,9 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             {
                 _orderProduccion = new Service.ordenProduccion();
                 _orderProduccion.fecha = dtpOrden.Value;
-                _orderProduccion.lineasOrden = (lineaOrden[])dgvOrden.DataSource; // No sé si esto funcione
+                _orderProduccion.lineasOrden = (lineaOrden[])dgvOrdenProduccion.DataSource; // No sé si esto funcione
 
-                if (estadoFormulario == Estado.Nuevo)
+                /* if (estadoFormulario == Estado.Nuevo)
                 {
                     DBController.insertarOrdenProduccion(_orderProduccion, _idPlanMaestroProduccion);
 
@@ -208,7 +217,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                         DBController.actualizarLineaOrden(l, _orderProduccion.id);
                     }
                     MessageBox.Show("Orden de Producción correctamente modificada.", "Mensaje Confirmacion", MessageBoxButtons.OK);
-                }
+                } */
             }
             else
             {
@@ -233,9 +242,9 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             lineasEliminadas = new BindingList<lineaOrden>();
             lineaOrden = new lineaOrden();
             _orderProduccion = new ordenProduccion();
-            dgvOrden.DataSource = null;
-            dgvOrden.Rows.Clear();
-            dgvOrden.Refresh();
+            dgvOrdenProduccion.DataSource = null;
+            dgvOrdenProduccion.Rows.Clear();
+            dgvOrdenProduccion.Refresh();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -256,11 +265,6 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             estadoComponentes(estadoFormulario);
         }
 
-        private void frmGestionarOrden_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             lineaOrden = new Service.lineaOrden();
@@ -274,12 +278,12 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             lineasAg.Add(lineaOrden);
             lineas = lineasAg;
             _orderProduccion.lineasOrden = lineas.ToArray();
-            dgvOrden.DataSource = lineas;
+            dgvOrdenProduccion.DataSource = lineas;
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            string str = dgvOrden.Rows[dgvOrden.SelectedRows[0].Index].Cells[1].Value.ToString();
+            string str = dgvOrdenProduccion.Rows[dgvOrdenProduccion.SelectedRows[0].Index].Cells[1].Value.ToString();
 
             BindingList<Service.lineaOrden> lineasElim = new BindingList<lineaOrden>();
             foreach (lineaOrden item in lineas)
@@ -292,17 +296,17 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                 }
             }
             lineas = lineasElim;
-            dgvOrden.DataSource = lineas;
+            dgvOrdenProduccion.DataSource = lineas;
         }
         private void dgvOrden_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            Service.lineaOrden lineaOrdenFila = (Service.lineaOrden)dgvOrden.Rows[e.RowIndex].DataBoundItem;
-            dgvOrden.Rows[e.RowIndex].Cells["Producto"].Style.ForeColor = System.Drawing.Color.Black;
-            dgvOrden.Rows[e.RowIndex].Cells["Codigo"].Style.ForeColor = System.Drawing.Color.Black;
-            dgvOrden.Rows[e.RowIndex].Cells["Cantidad"].Style.ForeColor = System.Drawing.Color.Black;
-            dgvOrden.Rows[e.RowIndex].Cells["Producto"].Value = lineaOrdenFila.producto.nombre;
-            dgvOrden.Rows[e.RowIndex].Cells["Codigo"].Value = lineaOrdenFila.producto.idProducto;
-            dgvOrden.Rows[e.RowIndex].Cells["Cantidad"].Value = lineaOrdenFila.cantProducto;
+            Service.lineaOrden lineaOrdenFila = (Service.lineaOrden)dgvOrdenProduccion.Rows[e.RowIndex].DataBoundItem;
+            dgvOrdenProduccion.Rows[e.RowIndex].Cells["Producto"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvOrdenProduccion.Rows[e.RowIndex].Cells["Codigo"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvOrdenProduccion.Rows[e.RowIndex].Cells["Cantidad"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvOrdenProduccion.Rows[e.RowIndex].Cells["Producto"].Value = lineaOrdenFila.producto.nombre;
+            dgvOrdenProduccion.Rows[e.RowIndex].Cells["Codigo"].Value = lineaOrdenFila.producto.idProducto;
+            dgvOrdenProduccion.Rows[e.RowIndex].Cells["Cantidad"].Value = lineaOrdenFila.cantProducto;
         }
 
         private void btnGuardar_Click_1(object sender, EventArgs e)
@@ -355,11 +359,15 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                 _orderProduccion = formOrd.OrdenSeleccionada;
                 txtNOrden.Text = _orderProduccion.id.ToString();
                 dtpOrden.Value = _orderProduccion.fecha;
-                lineas = new BindingList<lineaOrden>(DBController.listarLineaOrden(_orderProduccion.id));
-                dgvOrden.DataSource = lineas;
+                Service.lineaOrden[] l = DBController.listarLineaOrden(_orderProduccion.id);
+                if (l != null)
+                {
+                    lineas = new BindingList<lineaOrden>(l);
+                    dgvOrdenProduccion.DataSource = lineas;
+                }
+                estadoFormulario = Estado.Buscar;
+                estadoComponentes(Estado.Buscar);
             }
-            estadoFormulario = Estado.Buscar;
-            estadoComponentes(Estado.Buscar);
         }
     }
 }

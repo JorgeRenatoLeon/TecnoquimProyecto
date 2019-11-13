@@ -34,9 +34,9 @@
             this.btnGuardar = new System.Windows.Forms.ToolStripButton();
             this.btnModificar = new System.Windows.Forms.ToolStripButton();
             this.btnCancelar = new System.Windows.Forms.ToolStripButton();
-            this.dgvOrden = new System.Windows.Forms.DataGridView();
+            this.dgvMaquinaria = new System.Windows.Forms.DataGridView();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Orden = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Maquinaria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtNOrden = new System.Windows.Forms.TextBox();
@@ -49,17 +49,16 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnAgregarOrden = new System.Windows.Forms.Button();
+            this.dgvOrdenProduccion = new System.Windows.Forms.DataGridView();
+            this.calOrdenProduccion = new System.Windows.Forms.MonthCalendar();
             this.btnBuscarOrden = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.btnBuscar = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOrden)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMaquinaria)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.gbDatosGenerales.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenProduccion)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -69,10 +68,11 @@
             this.btnNuevo,
             this.btnGuardar,
             this.btnModificar,
+            this.btnBuscar,
             this.btnCancelar});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(740, 32);
+            this.toolStrip1.Size = new System.Drawing.Size(842, 32);
             this.toolStrip1.TabIndex = 26;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -83,6 +83,7 @@
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(87, 29);
             this.btnNuevo.Text = "&Nuevo";
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // btnGuardar
             // 
@@ -91,6 +92,7 @@
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(101, 29);
             this.btnGuardar.Text = "&Guardar";
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnModificar
             // 
@@ -99,6 +101,7 @@
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(113, 29);
             this.btnModificar.Text = "&Modificar";
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnCancelar
             // 
@@ -109,22 +112,22 @@
             this.btnCancelar.Text = "&Cancelar";
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // dgvOrden
+            // dgvMaquinaria
             // 
-            this.dgvOrden.AllowUserToAddRows = false;
-            this.dgvOrden.AllowUserToDeleteRows = false;
-            this.dgvOrden.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOrden.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvMaquinaria.AllowUserToAddRows = false;
+            this.dgvMaquinaria.AllowUserToDeleteRows = false;
+            this.dgvMaquinaria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMaquinaria.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Codigo,
-            this.Orden,
+            this.Maquinaria,
             this.Fecha});
-            this.dgvOrden.Location = new System.Drawing.Point(26, 465);
-            this.dgvOrden.Name = "dgvOrden";
-            this.dgvOrden.ReadOnly = true;
-            this.dgvOrden.RowHeadersWidth = 50;
-            this.dgvOrden.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrden.Size = new System.Drawing.Size(679, 162);
-            this.dgvOrden.TabIndex = 33;
+            this.dgvMaquinaria.Location = new System.Drawing.Point(26, 525);
+            this.dgvMaquinaria.Name = "dgvMaquinaria";
+            this.dgvMaquinaria.ReadOnly = true;
+            this.dgvMaquinaria.RowHeadersWidth = 50;
+            this.dgvMaquinaria.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMaquinaria.Size = new System.Drawing.Size(801, 162);
+            this.dgvMaquinaria.TabIndex = 33;
             // 
             // Codigo
             // 
@@ -133,14 +136,14 @@
             this.Codigo.ReadOnly = true;
             this.Codigo.Width = 150;
             // 
-            // Orden
+            // Maquinaria
             // 
-            this.Orden.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Orden.FillWeight = 150F;
-            this.Orden.HeaderText = "Orden";
-            this.Orden.Name = "Orden";
-            this.Orden.ReadOnly = true;
-            this.Orden.Width = 300;
+            this.Maquinaria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Maquinaria.FillWeight = 150F;
+            this.Maquinaria.HeaderText = "Maquinaria";
+            this.Maquinaria.Name = "Maquinaria";
+            this.Maquinaria.ReadOnly = true;
+            this.Maquinaria.Width = 300;
             // 
             // Fecha
             // 
@@ -157,7 +160,7 @@
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox1.Location = new System.Drawing.Point(26, 50);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(679, 76);
+            this.groupBox1.Size = new System.Drawing.Size(801, 76);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Plan Maestro";
@@ -190,9 +193,9 @@
             this.gbDatosGenerales.Controls.Add(this.lblNombre);
             this.gbDatosGenerales.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbDatosGenerales.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.gbDatosGenerales.Location = new System.Drawing.Point(26, 299);
+            this.gbDatosGenerales.Location = new System.Drawing.Point(26, 365);
             this.gbDatosGenerales.Name = "gbDatosGenerales";
-            this.gbDatosGenerales.Size = new System.Drawing.Size(679, 137);
+            this.gbDatosGenerales.Size = new System.Drawing.Size(801, 137);
             this.gbDatosGenerales.TabIndex = 30;
             this.gbDatosGenerales.TabStop = false;
             this.gbDatosGenerales.Text = "Maquinaria";
@@ -212,7 +215,7 @@
             // btnBuscarMaquinaria
             // 
             this.btnBuscarMaquinaria.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnBuscarMaquinaria.Location = new System.Drawing.Point(458, 37);
+            this.btnBuscarMaquinaria.Location = new System.Drawing.Point(455, 37);
             this.btnBuscarMaquinaria.Name = "btnBuscarMaquinaria";
             this.btnBuscarMaquinaria.Size = new System.Drawing.Size(61, 28);
             this.btnBuscarMaquinaria.TabIndex = 36;
@@ -259,38 +262,37 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnAgregarOrden);
+            this.groupBox2.Controls.Add(this.dgvOrdenProduccion);
+            this.groupBox2.Controls.Add(this.calOrdenProduccion);
             this.groupBox2.Controls.Add(this.btnBuscarOrden);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox2.Location = new System.Drawing.Point(26, 142);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(679, 137);
+            this.groupBox2.Size = new System.Drawing.Size(801, 217);
             this.groupBox2.TabIndex = 38;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ordenes de Producción";
             // 
-            // btnAgregarOrden
+            // dgvOrdenProduccion
             // 
-            this.btnAgregarOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnAgregarOrden.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAgregarOrden.Location = new System.Drawing.Point(571, 30);
-            this.btnAgregarOrden.Name = "btnAgregarOrden";
-            this.btnAgregarOrden.Size = new System.Drawing.Size(73, 28);
-            this.btnAgregarOrden.TabIndex = 37;
-            this.btnAgregarOrden.Text = "Agregar";
-            this.btnAgregarOrden.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAgregarOrden.UseVisualStyleBackColor = true;
-            this.btnAgregarOrden.Click += new System.EventHandler(this.button3_Click);
+            this.dgvOrdenProduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOrdenProduccion.Location = new System.Drawing.Point(272, 30);
+            this.dgvOrdenProduccion.Name = "dgvOrdenProduccion";
+            this.dgvOrdenProduccion.Size = new System.Drawing.Size(504, 168);
+            this.dgvOrdenProduccion.TabIndex = 38;
+            // 
+            // calOrdenProduccion
+            // 
+            this.calOrdenProduccion.Location = new System.Drawing.Point(12, 36);
+            this.calOrdenProduccion.Name = "calOrdenProduccion";
+            this.calOrdenProduccion.TabIndex = 37;
+            this.calOrdenProduccion.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.calOrdenProduccion_DateChanged);
             // 
             // btnBuscarOrden
             // 
             this.btnBuscarOrden.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnBuscarOrden.Location = new System.Drawing.Point(458, 30);
+            this.btnBuscarOrden.Location = new System.Drawing.Point(287, 170);
             this.btnBuscarOrden.Name = "btnBuscarOrden";
             this.btnBuscarOrden.Size = new System.Drawing.Size(61, 28);
             this.btnBuscarOrden.TabIndex = 36;
@@ -299,50 +301,23 @@
             this.btnBuscarOrden.UseVisualStyleBackColor = true;
             this.btnBuscarOrden.Click += new System.EventHandler(this.button4_Click);
             // 
-            // textBox1
+            // btnBuscar
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(114, 87);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(530, 29);
-            this.textBox1.TabIndex = 35;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(39, 92);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 24);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "Fecha:";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(207, 32);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(222, 29);
-            this.textBox2.TabIndex = 20;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(39, 39);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(162, 24);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Codigo de Orden:";
+            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
+            this.btnBuscar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(88, 29);
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // frmGestionarPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(58)))), ((int)(((byte)(103)))));
-            this.ClientSize = new System.Drawing.Size(740, 661);
+            this.ClientSize = new System.Drawing.Size(842, 719);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.dgvOrden);
+            this.Controls.Add(this.dgvMaquinaria);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbDatosGenerales);
             this.Controls.Add(this.toolStrip1);
@@ -350,13 +325,13 @@
             this.Text = "°";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOrden)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMaquinaria)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gbDatosGenerales.ResumeLayout(false);
             this.gbDatosGenerales.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenProduccion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,7 +344,7 @@
         private System.Windows.Forms.ToolStripButton btnGuardar;
         private System.Windows.Forms.ToolStripButton btnModificar;
         private System.Windows.Forms.ToolStripButton btnCancelar;
-        private System.Windows.Forms.DataGridView dgvOrden;
+        private System.Windows.Forms.DataGridView dgvMaquinaria;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtNOrden;
         private System.Windows.Forms.Label label5;
@@ -380,15 +355,13 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Button btnAgregarMaquinaria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Orden;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnAgregarOrden;
         private System.Windows.Forms.Button btnBuscarOrden;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MonthCalendar calOrdenProduccion;
+        private System.Windows.Forms.DataGridView dgvOrdenProduccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Maquinaria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.ToolStripButton btnBuscar;
     }
 }

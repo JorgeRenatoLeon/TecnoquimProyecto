@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import lp2tecnoquim.config.DBController;
 import lp2tecnoquim.config.DBManager;
 import lp2tecnoquim.dao.InstructivoDAO;
 import lp2tecnoquim.model.Instructivo;
@@ -69,7 +70,7 @@ public class InstructivoMySQL implements InstructivoDAO {
             cs = con.prepareCall("{call ELIMINAR_INSTRUCTIVO(?)}");
             cs.setInt("_ID_INSTRUCTIVO", id);
             
-           
+            cs.executeUpdate();
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -89,9 +90,9 @@ public class InstructivoMySQL implements InstructivoDAO {
             while(rs.next()){
                 Instructivo  i = new Instructivo();
                 
-                i.setId(cs.getInt("ID_INSTRUCTIVO"));
-                i.setActividades(cs.getString("ACTIVIDADES"));
-     
+                i.setId(rs.getInt("ID_INSTRUCTIVO"));
+                i.setActividades(rs.getString("ACTIVIDADES"));
+                i.setInsumos(DBController.listarLineaInsumo(i.getId()));
                 instructivos.add(i);
             }
         }catch(ClassNotFoundException | SQLException ex){

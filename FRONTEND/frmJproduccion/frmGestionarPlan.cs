@@ -79,7 +79,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
 
         private void calOrdenProduccion_DateChanged(object sender, DateRangeEventArgs e)
         {
-
+            
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -88,18 +88,20 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             if (form.ShowDialog() == DialogResult.OK)
             {
                 PMP = form.PMPSeleccionado;
-                txtNOrden.Text = PMP.id.ToString();
-                Service.maquinaria[] lm = PMP.maquinarias;
-                Service.ordenProduccion[] lo = PMP.ordenes;
+                Service.detalleMaquinaria[] lm = DBController.listarDetalleMaquinaria(PMP.id);
+                foreach (Service.detalleMaquinaria item in lm)
+                {
+                    Service.maquinaria[] maqs = DBController.listarMaquinaria(item.maquinaria.nombre);
+                    maquinarias.Add(maqs[0]);
+                }
                 if (lm != null)
                 {
-                    maquinarias = new BindingList<maquinaria>(lm);
+                    PMP.maquinarias = maquinarias.ToArray();
                     dgvMaquinaria.DataSource = maquinarias;
                 }
-                if (lo != null)
-                {
-                    ordenes = new BindingList<ordenProduccion>(lo);
-                }
+                txtNOrden.Text = PMP.id.ToString();
+                Service.ordenProduccion[] lo = DBController.listarOrdenesProduccionPlan(PMP.id);
+                PMP.ordenes = lo.ToArray();
                 //estadoFormulario = Estado.Buscar;
                 //estadoComponentes(Estado.Buscar);
             }

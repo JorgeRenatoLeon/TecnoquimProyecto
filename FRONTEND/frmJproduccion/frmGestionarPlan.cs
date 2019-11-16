@@ -18,6 +18,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
         Service.detalleMaquinaria[] lm;
         BindingList<Service.maquinaria> maquinarias;
         BindingList<Service.ordenProduccion> ordenes;
+        Service.ordenProduccion ordenSeleccionada;
         private Service.planMaestroProduccion _pmp;
 
         public planMaestroProduccion PMP { get => _pmp; set => _pmp = value; }
@@ -29,6 +30,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             PMP = new planMaestroProduccion();
             dgvOrden.AutoGenerateColumns = false;
             dgvMaquinaria.AutoGenerateColumns = false;
+            ordenSeleccionada = new ordenProduccion();
             maquinarias = new BindingList<maquinaria>();
             ordenes = new BindingList<ordenProduccion>();
         }
@@ -89,10 +91,11 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             {
                 foreach (Service.ordenProduccion item in PMP.ordenes)
                 {
-                    string a = item.fecha.ToString("dd-MM-yyy");
+                    string a = item.fecha.AddHours(5).ToString("dd-MM-yyy");
                     string b = calOrdenProduccion.SelectionRange.Start.ToString("dd-MM-yyy");
                     if (a == b)
                     {
+                        ordenSeleccionada = item;
                         dgvOrden.DataSource = item.lineasOrden;
                         hubo = 1;
                     }
@@ -157,6 +160,15 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             }
             dgvMaquinaria.Rows[e.RowIndex].Cells["Fecha"].Value = fecha;
         }
-        
+
+        private void btnEditarOrden_Click(object sender, EventArgs e)
+        {
+            frmGestionarOrden formOrd = new frmGestionarOrden(ordenSeleccionada);
+            if (formOrd.ShowDialog(this) == DialogResult.OK)
+            {
+                ordenSeleccionada = formOrd.OrderProduccion;
+                dgvOrden.DataSource = ordenSeleccionada.lineasOrden;
+            }
+        }
     }
 }

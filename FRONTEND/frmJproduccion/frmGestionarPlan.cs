@@ -69,6 +69,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             _pmp = new Service.planMaestroProduccion();
+            //limpiarComponentes();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -156,5 +157,6 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             }
             dgvMaquinaria.Rows[e.RowIndex].Cells["Fecha"].Value = fecha;
         }
+        
     }
 }

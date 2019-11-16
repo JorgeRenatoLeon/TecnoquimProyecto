@@ -15,6 +15,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
     {
 
         Service.ServicioClient DBController = new Service.ServicioClient();
+        Service.detalleMaquinaria[] lm;
         BindingList<Service.maquinaria> maquinarias;
         BindingList<Service.ordenProduccion> ordenes;
         private Service.planMaestroProduccion _pmp;
@@ -24,7 +25,10 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
         public frmGestionarPlan()
         {
             InitializeComponent();
+            calOrdenProduccion.MaxSelectionCount = 1;
             PMP = new planMaestroProduccion();
+            dgvOrden.AutoGenerateColumns = false;
+            dgvMaquinaria.AutoGenerateColumns = false;
             maquinarias = new BindingList<maquinaria>();
             ordenes = new BindingList<ordenProduccion>();
         }
@@ -79,7 +83,21 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
 
         private void calOrdenProduccion_DateChanged(object sender, DateRangeEventArgs e)
         {
-            
+            int hubo = 0;
+            if (PMP.ordenes != null)
+            {
+                foreach (Service.ordenProduccion item in PMP.ordenes)
+                {
+                    string a = item.fecha.ToString("dd-MM-yyy");
+                    string b = calOrdenProduccion.SelectionRange.Start.ToString("dd-MM-yyy");
+                    if (a == b)
+                    {
+                        dgvOrden.DataSource = item.lineasOrden;
+                        hubo = 1;
+                    }
+                }
+            }
+            if (hubo == 0) dgvOrden.DataSource = null;
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -88,7 +106,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             if (form.ShowDialog() == DialogResult.OK)
             {
                 PMP = form.PMPSeleccionado;
-                Service.detalleMaquinaria[] lm = DBController.listarDetalleMaquinaria(PMP.id);
+                lm = DBController.listarDetalleMaquinaria(PMP.id);
                 foreach (Service.detalleMaquinaria item in lm)
                 {
                     Service.maquinaria[] maqs = DBController.listarMaquinaria(item.maquinaria.nombre);
@@ -101,10 +119,42 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                 }
                 txtNOrden.Text = PMP.id.ToString();
                 Service.ordenProduccion[] lo = DBController.listarOrdenesProduccionPlan(PMP.id);
+                foreach (Service.ordenProduccion item in lo)
+                {
+                    item.lineasOrden = DBController.listarLineaOrden(item.id);
+                }
                 PMP.ordenes = lo.ToArray();
                 //estadoFormulario = Estado.Buscar;
                 //estadoComponentes(Estado.Buscar);
             }
+        }
+        private void dgvOrden_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            Service.lineaOrden lineaOrdenFila = (Service.lineaOrden)dgvOrden.Rows[e.RowIndex].DataBoundItem;
+            dgvOrden.Rows[e.RowIndex].Cells["Producto"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvOrden.Rows[e.RowIndex].Cells["CodigoOrden"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvOrden.Rows[e.RowIndex].Cells["Cantidad"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvOrden.Rows[e.RowIndex].Cells["Producto"].Value = lineaOrdenFila.producto.nombre;
+            dgvOrden.Rows[e.RowIndex].Cells["CodigoOrden"].Value = lineaOrdenFila.producto.idProducto;
+            dgvOrden.Rows[e.RowIndex].Cells["Cantidad"].Value = lineaOrdenFila.cantProducto;
+        }
+        private void dgvMaquinaria_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            Service.maquinaria maqFila = (Service.maquinaria)dgvMaquinaria.Rows[e.RowIndex].DataBoundItem;
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Codigo"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Maquinaria"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Fecha"].Style.ForeColor = System.Drawing.Color.Black;
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Codigo"].Value = maqFila.id;
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Maquinaria"].Value = maqFila.nombre;
+            string fecha="";
+            foreach (Service.detalleMaquinaria item in lm)
+            {
+                if (maqFila.nombre == item.maquinaria.nombre)
+                {
+                    fecha = item.fecha.ToString("dd/MM/yyyy");
+                }
+            }
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Fecha"].Value = fecha;
         }
     }
 }

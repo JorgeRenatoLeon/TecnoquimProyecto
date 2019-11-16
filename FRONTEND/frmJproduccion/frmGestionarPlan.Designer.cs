@@ -33,6 +33,7 @@
             this.btnNuevo = new System.Windows.Forms.ToolStripButton();
             this.btnGuardar = new System.Windows.Forms.ToolStripButton();
             this.btnModificar = new System.Windows.Forms.ToolStripButton();
+            this.btnBuscar = new System.Windows.Forms.ToolStripButton();
             this.btnCancelar = new System.Windows.Forms.ToolStripButton();
             this.dgvMaquinaria = new System.Windows.Forms.DataGridView();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,16 +50,18 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dgvOrdenProduccion = new System.Windows.Forms.DataGridView();
+            this.dgvOrden = new System.Windows.Forms.DataGridView();
             this.calOrdenProduccion = new System.Windows.Forms.MonthCalendar();
             this.btnBuscarOrden = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.ToolStripButton();
+            this.CodigoOrden = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaquinaria)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.gbDatosGenerales.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenProduccion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrden)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -103,6 +106,15 @@
             this.btnModificar.Text = "&Modificar";
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
+            this.btnBuscar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(88, 29);
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // btnCancelar
             // 
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
@@ -128,6 +140,7 @@
             this.dgvMaquinaria.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvMaquinaria.Size = new System.Drawing.Size(801, 162);
             this.dgvMaquinaria.TabIndex = 33;
+            this.dgvMaquinaria.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvMaquinaria_CellFormatting);
             // 
             // Codigo
             // 
@@ -262,7 +275,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dgvOrdenProduccion);
+            this.groupBox2.Controls.Add(this.dgvOrden);
             this.groupBox2.Controls.Add(this.calOrdenProduccion);
             this.groupBox2.Controls.Add(this.btnBuscarOrden);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -274,13 +287,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ordenes de Producción";
             // 
-            // dgvOrdenProduccion
+            // dgvOrden
             // 
-            this.dgvOrdenProduccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOrdenProduccion.Location = new System.Drawing.Point(272, 30);
-            this.dgvOrdenProduccion.Name = "dgvOrdenProduccion";
-            this.dgvOrdenProduccion.Size = new System.Drawing.Size(504, 168);
-            this.dgvOrdenProduccion.TabIndex = 38;
+            this.dgvOrden.AllowUserToAddRows = false;
+            this.dgvOrden.AllowUserToDeleteRows = false;
+            this.dgvOrden.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOrden.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CodigoOrden,
+            this.Producto,
+            this.Cantidad});
+            this.dgvOrden.Location = new System.Drawing.Point(272, 36);
+            this.dgvOrden.Name = "dgvOrden";
+            this.dgvOrden.ReadOnly = true;
+            this.dgvOrden.RowHeadersWidth = 50;
+            this.dgvOrden.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOrden.Size = new System.Drawing.Size(523, 162);
+            this.dgvOrden.TabIndex = 39;
+            this.dgvOrden.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvOrden_CellFormatting);
             // 
             // calOrdenProduccion
             // 
@@ -301,14 +324,28 @@
             this.btnBuscarOrden.UseVisualStyleBackColor = true;
             this.btnBuscarOrden.Click += new System.EventHandler(this.button4_Click);
             // 
-            // btnBuscar
+            // CodigoOrden
             // 
-            this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(88, 29);
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.CodigoOrden.HeaderText = "Codigo";
+            this.CodigoOrden.Name = "CodigoOrden";
+            this.CodigoOrden.ReadOnly = true;
+            this.CodigoOrden.Width = 120;
+            // 
+            // Producto
+            // 
+            this.Producto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Producto.FillWeight = 150F;
+            this.Producto.HeaderText = "Producto";
+            this.Producto.Name = "Producto";
+            this.Producto.ReadOnly = true;
+            this.Producto.Width = 180;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.ReadOnly = true;
+            this.Cantidad.Width = 175;
             // 
             // frmGestionarPlan
             // 
@@ -331,7 +368,7 @@
             this.gbDatosGenerales.ResumeLayout(false);
             this.gbDatosGenerales.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenProduccion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrden)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -358,10 +395,13 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnBuscarOrden;
         private System.Windows.Forms.MonthCalendar calOrdenProduccion;
-        private System.Windows.Forms.DataGridView dgvOrdenProduccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Maquinaria;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.ToolStripButton btnBuscar;
+        private System.Windows.Forms.DataGridView dgvOrden;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoOrden;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
     }
 }

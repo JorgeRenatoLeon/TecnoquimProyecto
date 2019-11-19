@@ -94,8 +94,8 @@ public abstract class DBController {
       
       // DetalleMaquinaria
       
-      public static void insertarDetalleMaquinaria(DetalleMaquinaria detalleMaquinaria){
-          daoFactory.getDetalleMaquinariaDAO().insertar(detalleMaquinaria);
+      public static void insertarDetalleMaquinaria(DetalleMaquinaria detalleMaquinaria, int idPMP){
+          daoFactory.getDetalleMaquinariaDAO().insertar(detalleMaquinaria, idPMP);
       }
       
       public static void actualizarDetalleMaquinaria(DetalleMaquinaria detalleMaquinaria){
@@ -108,6 +108,10 @@ public abstract class DBController {
       
       public static ArrayList<DetalleMaquinaria> listarDetalleMaquinaria(int idPMP){
           return daoFactory.getDetalleMaquinariaDAO().listar(idPMP);
+      }
+      
+      public static ArrayList<DetalleMaquinaria> listarDetalleMaquinariaTodos(String maq){
+          return daoFactory.getDetalleMaquinariaDAO().listarTodo(maq);
       }
       
       // Instructivo
@@ -238,8 +242,8 @@ public abstract class DBController {
       
       // PlanMaestroProduccion
       
-      public static void insertarPMP(PlanMaestroProduccion plan){
-          daoFactory.getPlanMaestroProduccionDAO().insertar(plan);
+      public static int insertarPMP(PlanMaestroProduccion plan){
+          return daoFactory.getPlanMaestroProduccionDAO().insertar(plan);
       }
       
       public static void actualizarPMP(PlanMaestroProduccion plan){
@@ -252,6 +256,10 @@ public abstract class DBController {
       
       public static ArrayList<PlanMaestroProduccion> listarPMP(String periodo){
           return daoFactory.getPlanMaestroProduccionDAO().listar(periodo);
+      }
+      
+      public static ArrayList<PlanMaestroProduccion> listarPMPEstado(int estado){
+          return daoFactory.getPlanMaestroProduccionDAO().listarEstado(estado);
       }
       
       // PoliticaStock

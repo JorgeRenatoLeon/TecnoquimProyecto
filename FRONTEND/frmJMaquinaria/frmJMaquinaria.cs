@@ -85,12 +85,12 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
             frmMaquinaria formMaquinaria = new frmMaquinaria();
             if (formMaquinaria.ShowDialog(this) == DialogResult.OK)
             {
-                maquinaria = formMaquinaria.MaquinariaSeleccionada;
+                maquinaria = formMaquinaria.DetalleMaquinariaSeleccionada.maquinaria;
                 txtNOrden.Text = maquinaria.id.ToString();
                 txtNombre.Text= maquinaria.nombre;
                 txtTipo.Text=maquinaria.tipo;
 
-                if (detalle.activo == true)
+                if (formMaquinaria.DetalleMaquinariaSeleccionada.activo == true)
                 {
                     rbActivo.Checked = true;
                 }
@@ -109,7 +109,9 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
             maquinaria.nombre = txtNombre.Text;
             maquinaria.tipo = txtTipo.Text;
             detalle.maquinaria = maquinaria;
-            if (rbActivo.Checked == true)
+            detalle.fechaSpecified = true;
+            detalle.fecha = DateTime.Now;
+            if (rbActivo.Enabled == true)
             {
                 detalle.activo = true;
             }
@@ -120,7 +122,7 @@ namespace LP2TECNOQUIMFRONT.frmJMaquinaria
             if (estadoObj == Estado.Nuevo)
             {
                 DBController.insertarMaquinaria(maquinaria);
-                DBController.insertarDetalleMaquinaria(detalle);
+                DBController.insertarDetalleMaquinaria(detalle,1);
                 MessageBox.Show("Maquinaria Registrada Satisfactoriamente", "Mensaje Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (estadoObj == Estado.Modificar) 

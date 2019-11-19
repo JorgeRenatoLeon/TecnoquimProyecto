@@ -58,7 +58,7 @@ namespace LP2TECNOQUIMFRONT.frmGerente
         private void dgvNotificaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             string str = dgvNotificaciones.Rows[dgvNotificaciones.SelectedRows[0].Index].Cells[2].Value.ToString();
-
+            //DBController.eliminarMensaje();
             if (str == "VALIDAR PMP")
             {
                 this.Visible = false;

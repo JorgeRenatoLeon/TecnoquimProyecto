@@ -26,13 +26,14 @@ public class DetalleMaquinariaMySQL implements DetalleMaquinariaDAO {
     CallableStatement cs;
 
     @Override
-    public void insertar(DetalleMaquinaria detalleMaquinaria) {
+    public void insertar(DetalleMaquinaria detalleMaquinaria, int idPMP) {
         try{
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
-            cs = con.prepareCall("{call INSERTAR_DET_MAQUINARIA(?,?,?,?)}");
+            cs = con.prepareCall("{call INSERTAR_DET_MAQUINARIA(?,?,?,?,?)}");
             cs.setBoolean("_ESTADO", detalleMaquinaria.isActivo());
             cs.setDate("_FECHA", new java.sql.Date(detalleMaquinaria.getFecha().getTime()));
             cs.setInt("_FK_ID_MAQUINARIA", detalleMaquinaria.getMaquinaria().getId());
+            cs.setInt("_FK_ID_PMP", idPMP);
             cs.registerOutParameter("_ID_DET_MAQ", java.sql.Types.INTEGER);            
             cs.executeUpdate();            
             detalleMaquinaria.setIdDetalleM(cs.getInt("_ID_DET_MAQ"));
@@ -68,7 +69,7 @@ public class DetalleMaquinariaMySQL implements DetalleMaquinariaDAO {
             cs = con.prepareCall("{call ELIMINAR_DET_MAQUINARIA(?)}");
             cs.setInt("_ID_DET_MAQ", id);
             
-           
+            cs.executeUpdate();
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }finally{
@@ -84,6 +85,35 @@ public class DetalleMaquinariaMySQL implements DetalleMaquinariaDAO {
             con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
             cs = con.prepareCall("{call LISTAR_DET_MAQUINARIA(?)}");
             cs.setInt("_FK_ID_PMP", idPMP);
+            ResultSet rs = cs.executeQuery();
+            while(rs.next()){
+                DetalleMaquinaria  d = new DetalleMaquinaria();
+                
+                d.setIdDetalleM(rs.getInt("ID_DET_MAQ"));
+                d.setFecha(new java.util.Date(rs.getDate("FECHA").getTime()));
+                d.setActivo(rs.getBoolean("ESTADO"));
+                d.getMaquinaria().setId(rs.getInt("ID_MAQUINARIA"));
+                d.getMaquinaria().setNombre(rs.getString("NOMBRE"));
+                d.getMaquinaria().setTipo(rs.getString("TIPO"));
+                
+                detalleMaquinaria.add(d);
+            }
+        }catch(ClassNotFoundException | SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
+        return detalleMaquinaria;
+    }
+
+    @Override
+    public ArrayList<DetalleMaquinaria> listarTodo(String maq) {
+        ArrayList<DetalleMaquinaria> detalleMaquinaria = new ArrayList<>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            cs = con.prepareCall("{call LISTAR_DET_MAQUINARIA_TODOS(?)}");
+            cs.setString("_MAQ",maq);
             ResultSet rs = cs.executeQuery();
             while(rs.next()){
                 DetalleMaquinaria  d = new DetalleMaquinaria();

@@ -68,11 +68,17 @@
     <Compile Include="frmGerente\frmGestionarEmpleado.Designer.cs">
       <DependentUpon>frmGestionarEmpleado.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGerente\frmGestionarPlanMaestro.cs">
+    <Compile Include="frmGerente\frmRevisarPlanMaestro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGerente\frmGestionarPlanMaestro.Designer.cs">
-      <DependentUpon>frmGestionarPlanMaestro.cs</DependentUpon>
+    <Compile Include="frmGerente\frmRevisarPlanMaestro.Designer.cs">
+      <DependentUpon>frmRevisarPlanMaestro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGerente\frmGestionarPMP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGerente\frmGestionarPMP.Designer.cs">
+      <DependentUpon>frmGestionarPMP.cs</DependentUpon>
     </Compile>
     <Compile Include="frmGerente\frmNotificaciones.cs">
       <SubType>Form</SubType>
@@ -158,6 +164,18 @@
     <Compile Include="frmJControlCalidad\frmControlCalidad.designer.cs">
       <DependentUpon>frmControlCalidad.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmJControlCalidad\frmListaInsumo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJControlCalidad\frmListaInsumo.Designer.cs">
+      <DependentUpon>frmListaInsumo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmJControlCalidad\frmListaOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJControlCalidad\frmListaOrden.Designer.cs">
+      <DependentUpon>frmListaOrden.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmJControlCalidad\frmModCalidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +235,12 @@
     </Compile>
     <Compile Include="frmGerente\frmBuscarPlanMaestro.Designer.cs">
       <DependentUpon>frmBuscarPlanMaestro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmJproduccion\InsumosRestringidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJproduccion\InsumosRestringidos.Designer.cs">
+      <DependentUpon>InsumosRestringidos.cs</DependentUpon>
     </Compile>
     <Compile Include="frmJVenta\frmBuscarProducto.cs">
       <SubType>Form</SubType>
@@ -358,8 +382,11 @@
     <EmbeddedResource Include="frmGerente\frmBuscarEmpleado.resx">
       <DependentUpon>frmBuscarEmpleado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGerente\frmGestionarPlanMaestro.resx">
-      <DependentUpon>frmGestionarPlanMaestro.cs</DependentUpon>
+    <EmbeddedResource Include="frmGerente\frmRevisarPlanMaestro.resx">
+      <DependentUpon>frmRevisarPlanMaestro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGerente\frmGestionarPMP.resx">
+      <DependentUpon>frmGestionarPMP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGerente\frmNotificaciones.resx">
       <DependentUpon>frmNotificaciones.cs</DependentUpon>
@@ -403,6 +430,12 @@
     <EmbeddedResource Include="frmJControlCalidad\frmControlCalidad.resx">
       <DependentUpon>frmControlCalidad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmJControlCalidad\frmListaInsumo.resx">
+      <DependentUpon>frmListaInsumo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmJControlCalidad\frmListaOrden.resx">
+      <DependentUpon>frmListaOrden.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmJControlCalidad\frmModCalidad.resx">
       <DependentUpon>frmModCalidad.cs</DependentUpon>
     </EmbeddedResource>
@@ -432,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmGerente\frmBuscarPlanMaestro.resx">
       <DependentUpon>frmBuscarPlanMaestro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmJproduccion\InsumosRestringidos.resx">
+      <DependentUpon>InsumosRestringidos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmJVenta\frmBuscarProducto.resx">
       <DependentUpon>frmBuscarProducto.cs</DependentUpon>
@@ -570,6 +606,9 @@
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.detalleMaquinaria.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.eliminarDetalleMaquinariaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.eliminarInsumoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -592,6 +631,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.enviarMensajeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.generarReporteInsumosRestringidosPDFResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.generarReporteProductosRestringidosPDFResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.helloResponse.datasource">
@@ -681,6 +726,9 @@
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.listarDetalleMaquinariaResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.listarDetalleMaquinariaTodosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.listarInstructivosResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -706,6 +754,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.listarOrdenesProduccionPlanResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.listarPMPEstadoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.listarPMPResponse.datasource">
@@ -766,6 +817,10 @@
     <None Include="Connected Services\Service\Servicio1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\Service\Servicio11.wsdl" />
+    <None Include="Connected Services\Service\Servicio11.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -822,6 +877,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\reply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background_11.wide.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\istockphoto-940818100-1024x1024.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,12 +5,23 @@
  */
 package lp2tecnoquim.services;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import lp2tecnoquim.config.DBController;
+import lp2tecnoquim.config.DBManager;
 import lp2tecnoquim.model.*;
+import lp2tecnoquim.servlets.ServletInsumosRestringidos;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -30,6 +41,11 @@ public class Servicio {
     @WebMethod(operationName = "enviarMensaje")
     public void enviarMensaje(@WebParam(name = "mensaje") Mensaje mensaje) {
         DBController.enviarMensaje(mensaje);
+    }
+    
+    @WebMethod(operationName = "enviarMensaje")
+    public void leerMensaje(@WebParam(name = "idMensaje") int idMensaje) {
+        DBController.eliminarMensaje(idMensaje);
     }
     
     @WebMethod(operationName = "verificarUsuario")
@@ -98,16 +114,25 @@ public class Servicio {
     }
     //DetalleMaquinaria
     @WebMethod(operationName = "insertarDetalleMaquinaria")
-    public void insertarDetalleMaquinaria(@WebParam(name = "maquinaria") DetalleMaquinaria maquinaria){
-        DBController.insertarDetalleMaquinaria(maquinaria);
+    public void insertarDetalleMaquinaria(@WebParam(name = "maquinaria") DetalleMaquinaria maquinaria,
+            @WebParam(name="idPMP") int idPMP){
+        DBController.insertarDetalleMaquinaria(maquinaria,idPMP);
     }
     @WebMethod(operationName = "actualizarDetalleMaquinaria")
     public void actualizarDetalleMaquinaria(@WebParam(name = "maquinaria") DetalleMaquinaria maquinaria){        
         DBController.actualizarDetalleMaquinaria(maquinaria);
     }
+    @WebMethod(operationName = "eliminarDetalleMaquinaria")
+    public void eliminarDetalleMaquinaria(@WebParam(name = "idMaquinaria") int idMaq){        
+        DBController.eliminarDetalleMaquinaria(idMaq);
+    }
     @WebMethod(operationName = "listarDetalleMaquinaria")
     public ArrayList<DetalleMaquinaria> listarDetalleMaquinaria(@WebParam(name = "idPMP") int idPMP){
         return DBController.listarDetalleMaquinaria(idPMP);
+    }
+    @WebMethod(operationName = "listarDetalleMaquinariaTodos")
+    public ArrayList<DetalleMaquinaria> listarDetalleMaquinariaTodos(String maq){
+        return DBController.listarDetalleMaquinariaTodos(maq);
     }
      //Instructivo
     @WebMethod(operationName = "insertarInstructivo")
@@ -221,7 +246,7 @@ public class Servicio {
 
     @WebMethod(operationName = "actualizarOrdenProduccion")
     public void actualizarOrdenProduccion(@WebParam(name = "ordenProduccion") OrdenProduccion ordenProduccion,int idPMP){
-        DBController.insertarOrdenProduccion(ordenProduccion, idPMP);        
+        DBController.actualizarOrdenProduccion(ordenProduccion, idPMP);        
     }
     
     @WebMethod(operationName = "listarOrdenesProduccionPlan")
@@ -236,18 +261,23 @@ public class Servicio {
     
     //Plan Maestro de Produccion
     @WebMethod(operationName = "insertarPMP")
-    public void insertarPMP(@WebParam(name = "politicaStock") PlanMaestroProduccion politicaStock){
-        DBController.insertarPMP(politicaStock);        
+    public int insertarPMP(@WebParam(name = "politicaStock") PlanMaestroProduccion politicaStock){
+        return DBController.insertarPMP(politicaStock);        
     }
 
     @WebMethod(operationName = "actualizarPMP")
     public void actualizarPMP(@WebParam(name = "PlanMaestroProduccion") PlanMaestroProduccion pmp){
-        //DBController.insertarPMP(politicaStock);        
+        DBController.actualizarPMP(pmp);        
     }
     
     @WebMethod(operationName = "listarPMP")
     public ArrayList<PlanMaestroProduccion> listarPMP(@WebParam(name = "periodo") String periodo){
         return DBController.listarPMP(periodo);        
+    }
+    
+    @WebMethod(operationName = "listarPMPEstado")
+    public ArrayList<PlanMaestroProduccion> listarPMPEstado(@WebParam(name = "periodo") int estado){
+        return DBController.listarPMPEstado(estado);        
     }
     
     //PoliticaStock
@@ -349,14 +379,55 @@ public class Servicio {
         return DBController.listarUsuarios(username);        
     }
     
+    @WebMethod(operationName = "generarReporteInsumosRestringidosPDF")
+    public byte[] generarReporteInsumosRestringidosPDF(
+            @WebParam (name = "mes") int mes,
+            @WebParam (name = "anio") int anio){
+        byte[] arreglo = null;
+        try{
+            String ruta=ServletInsumosRestringidos.class.getResource(
+                    "/lp2tecnoquim/reports/InsumosRestringidos.jasper").getPath();
+            ruta=ruta.replaceAll("%20", " ");
+            ruta=ruta.replaceAll("%23", "#");
+            JasperReport reporte = (JasperReport)JRLoader.loadObjectFromFile(ruta);
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            HashMap hm = new HashMap();
+            hm.put("MES", mes);
+            hm.put("ANIO", anio);
+            JasperPrint jp = JasperFillManager.fillReport(reporte,hm,con);
+            arreglo = JasperExportManager.exportReportToPdf(jp);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return arreglo;
+    }
     
-    
-    
-    
-    
-    
-    
-    
+    @WebMethod(operationName = "generarReporteProductosRestringidosPDF")
+    public byte[] generarReporteProductosRestringidosPDF(
+            @WebParam (name = "mes") int mes,
+            @WebParam (name = "anio") int anio){
+        byte[] arreglo = null;
+        try{
+            String ruta=ServletInsumosRestringidos.class.getResource(
+                    "/lp2tecnoquim/reports/ProductosRestringidos.jasper").getPath();
+            ruta=ruta.replaceAll("%20", " ");
+            ruta=ruta.replaceAll("%23", "#");
+            JasperReport reporte = (JasperReport)JRLoader.loadObjectFromFile(ruta);
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            HashMap hm = new HashMap();
+            hm.put("MES", mes);
+            hm.put("ANIO", anio);
+            JasperPrint jp = JasperFillManager.fillReport(reporte,hm,con);
+            arreglo = JasperExportManager.exportReportToPdf(jp);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return arreglo;
+    }
     
 }
     

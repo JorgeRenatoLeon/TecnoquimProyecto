@@ -13,11 +13,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import lp2tecnoquim.config.DBController;
 import lp2tecnoquim.config.DBManager;
 import lp2tecnoquim.dao.DetalleAlmacenInsumoDAO;
 import lp2tecnoquim.model.DetalleAlmacenInsumo;
 import lp2tecnoquim.model.EstadoMaterial;
 import lp2tecnoquim.model.Insumo;
+import lp2tecnoquim.model.LineaInsumo;
+import lp2tecnoquim.model.LineaOrden;
+import lp2tecnoquim.model.OrdenProduccion;
 
 /**
  *
@@ -153,5 +157,49 @@ public class DetalleAlmacenInsumoMySQL implements DetalleAlmacenInsumoDAO {
             try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
         }
         return detalleAlmacenInsumo;
+    }
+    
+    public void actualizarPorOrden(OrdenProduccion orden){
+        for (LineaOrden linea: orden.getLineasOrden()){
+            ArrayList<LineaInsumo> insumosRequeridos = DBController.listarLineaInsumo(linea.getProducto().getInstructivo().getId());
+            for (LineaInsumo lineaInsumo : insumosRequeridos){
+                ArrayList<DetalleAlmacenInsumo> almacen = listar(lineaInsumo.getInsumo().getNombre());
+                int cantidadRequerida = linea.getCantProducto() * lineaInsumo.getCantInsumo();
+                for (DetalleAlmacenInsumo insumoAlmacen : almacen){
+                    if (insumoAlmacen.getStock() > cantidadRequerida){
+                        insumoAlmacen.setStock(insumoAlmacen.getStock() - cantidadRequerida);
+                        actualizar(insumoAlmacen);
+                        break;
+                    } else if (insumoAlmacen.getStock() == cantidadRequerida) {
+                        eliminar(insumoAlmacen.getId());
+                        break;
+                    } else {
+                        eliminar(insumoAlmacen.getId());
+                        cantidadRequerida -= insumoAlmacen.getStock();
+                    }
+                }
+        }
+        }
+    }
+
+    @Override
+    public void actualizarEstado(DetalleAlmacenInsumo detalleAlmacenInsumo) {
+        try{
+            con = DriverManager.getConnection(DBManager.url, DBManager.user, DBManager.password);
+            cs = con.prepareCall("{call ACTUALIZAR_DETALLE_ALMACEN_INSUMO_ESTADO(?,?)}");
+            cs.setInt("_ID_DET_ALM_INS", detalleAlmacenInsumo.getId());
+            if (detalleAlmacenInsumo.getEstado()== EstadoMaterial.Bueno){
+                cs.setInt("_CALIDAD", 1);
+            }else if (detalleAlmacenInsumo.getEstado()== EstadoMaterial.Rechazado){
+                cs.setInt("_CALIDAD", 2);
+            }else if (detalleAlmacenInsumo.getEstado()== EstadoMaterial.Pendiente){
+                cs.setInt("_CALIDAD", 0);
+            }                   
+            cs.executeUpdate();            
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally{
+            try{con.close();}catch(SQLException ex){System.out.println(ex.getMessage());}
+        }
     }
 }

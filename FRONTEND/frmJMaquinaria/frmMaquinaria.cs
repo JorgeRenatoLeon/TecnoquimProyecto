@@ -13,33 +13,25 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
 {
     public partial class frmMaquinaria : Form
     {
-        private Service.detalleMaquinaria detalleMaquinariaSeleccionada;
+        private Service.maquinaria maquinariaSeleccionada;
         Service.ServicioClient DBController = new Service.ServicioClient();
 
         public frmMaquinaria(int cont = 0)
         {
             InitializeComponent();
             dgvMaquinaria.AutoGenerateColumns = false;
-            if (cont != 0)
-            {
-                dgvMaquinaria.DataSource = DBController.listarDetalleMaquinaria(cont);
-            }
-            else
-            {
-                dgvMaquinaria.DataSource = DBController.listarDetalleMaquinariaTodos("");
-            }
+            dgvMaquinaria.DataSource = DBController.listarMaquinaria("");
         }
 
-        public detalleMaquinaria DetalleMaquinariaSeleccionada { get => detalleMaquinariaSeleccionada; set => detalleMaquinariaSeleccionada = value; }
+        public maquinaria MaquinariaSeleccionada { get => maquinariaSeleccionada; set => maquinariaSeleccionada = value; }
                
-
         private void dgvMaquinaria_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            Service.detalleMaquinaria maquinariaFila = (Service.detalleMaquinaria)dgvMaquinaria.Rows[e.RowIndex].DataBoundItem;
-            dgvMaquinaria.Rows[e.RowIndex].Cells["Nombre"].Value = maquinariaFila.maquinaria.nombre;
-            dgvMaquinaria.Rows[e.RowIndex].Cells["Codigo"].Value = maquinariaFila.maquinaria.id;
-            dgvMaquinaria.Rows[e.RowIndex].Cells["Tipo"].Value = maquinariaFila.maquinaria.tipo;
-            if(maquinariaFila.activo == true)
+            Service.maquinaria maquinariaFila = (Service.maquinaria)dgvMaquinaria.Rows[e.RowIndex].DataBoundItem;
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Nombre"].Value = maquinariaFila.nombre;
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Codigo"].Value = maquinariaFila.id;
+            dgvMaquinaria.Rows[e.RowIndex].Cells["Tipo"].Value = maquinariaFila.tipo;
+            if(maquinariaFila.estado == true)
             {
                 dgvMaquinaria.Rows[e.RowIndex].Cells["Estado"].Value = "ACTIVO";
             }
@@ -51,13 +43,13 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
 
         private void btnSeleccionar_Click_1(object sender, EventArgs e)
         {
-            DetalleMaquinariaSeleccionada = (Service.detalleMaquinaria)dgvMaquinaria.CurrentRow.DataBoundItem;
+            MaquinariaSeleccionada = (Service.maquinaria)dgvMaquinaria.CurrentRow.DataBoundItem;
             this.DialogResult = DialogResult.OK;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            dgvMaquinaria.DataSource = DBController.listarDetalleMaquinariaTodos(txtNombre.Text);
+            dgvMaquinaria.DataSource = DBController.listarMaquinaria(txtNombre.Text);
         }
     }
 }

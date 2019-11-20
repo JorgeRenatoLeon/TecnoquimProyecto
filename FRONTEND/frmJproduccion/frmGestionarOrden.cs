@@ -54,7 +54,8 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     estadoComponentes(estadoFormulario);
                 }
                 else
-                {
+                { 
+                    Flag = 2;
                     llenarDatos(ordenRecivida);
                     _orderProduccion = ordenRecivida;
                 }
@@ -122,12 +123,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     gbDatosOrden.Enabled = true;
                     txtNOrden.Enabled = false;
                     dtpOrden.Enabled = false;
-                    btnOrdenes.Enabled = true;
-
-                    if (ordenRecivida != null)
-                    {
-                        btnOrdenes.Visible = false;
-                    }
+                    
 
                     //Asignar el estado
                     estadoFormulario = estado;
@@ -162,10 +158,6 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     gbDetalleOrden.Enabled = true;
                     gbDatosOrden.Enabled = true;
 
-                    if (ordenRecivida != null)
-                    {
-                        btnOrdenes.Visible = false;
-                    }
 
                     //Asignar el estado
                     estadoFormulario = estado;
@@ -200,12 +192,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     gbDatosOrden.Enabled = true;
                     txtNOrden.Enabled = false;
                     dtpOrden.Enabled = false;
-                    btnOrdenes.Enabled = true;
 
-                    if (ordenRecivida != null)
-                    {
-                        btnOrdenes.Visible = false;
-                    }
 
                     //Asignar el estado
                     estadoFormulario = estado;
@@ -240,10 +227,6 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     gbDetalleOrden.Enabled = true;
                     gbDatosOrden.Enabled = true;
 
-                    if (ordenRecivida != null)
-                    {
-                        btnOrdenes.Visible = false;
-                    }
 
                     break;
                 default:
@@ -340,6 +323,10 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             lineas = lineasAg;
             _orderProduccion.lineasOrden = lineas.ToArray();
             dgvOrdenProduccion.DataSource = lineas;
+            if(Flag == 2)
+            {
+                Flag = 1;
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -359,6 +346,10 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             }
             lineas = lineasElim;
             dgvOrdenProduccion.DataSource = lineas;
+            if (Flag == 2)
+            {
+                Flag = 1;
+            }
         }
         private void dgvOrden_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -422,8 +413,9 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             estadoFormulario = Estado.Modificar;
             estadoComponentes(estadoFormulario);
         }
+        
 
-        private void btnOrdenes_Click(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
             frmOrdenes formOrd = new frmOrdenes();
             if (formOrd.ShowDialog(this) == DialogResult.OK)

@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lp2tecnoquim.services;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,27 +17,17 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
-/**
- *
- * @author pukurin
- */
 @WebService(serviceName = "Servicio")
 public class Servicio {
 
-    /**
-     * This is a sample web service operation
-     */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
+    
     
     @WebMethod(operationName = "enviarMensaje")
     public void enviarMensaje(@WebParam(name = "mensaje") Mensaje mensaje) {
         DBController.enviarMensaje(mensaje);
     }
     
-    @WebMethod(operationName = "enviarMensaje")
+    @WebMethod(operationName = "leerMensaje")
     public void leerMensaje(@WebParam(name = "idMensaje") int idMensaje) {
         DBController.eliminarMensaje(idMensaje);
     }
@@ -99,6 +83,16 @@ public class Servicio {
     public ArrayList<DetalleAlmacenInsumo> listarDetalleAlmacenInsumo(@WebParam(name = "dato") String dato){
         return DBController.listarDetalleAlmacenInsumo(dato);
     }
+    @WebMethod(operationName = "actualizarDetalleAlmacenInsumoPorOrden")
+    public void actualizarDetalleAlmacenInsumoPorOrden(@WebParam(name = "orden") OrdenProduccion orden){
+        DBController.actualizarDetalleAlmacenInsumoPorOrden(orden);
+    }
+    @WebMethod(operationName = "actualizarDetalleAlmacenInsumoEstado")
+    public void actualizarDetalleAlmacenInsumoEstado(@WebParam(name = "detalleAlmacenInsumo") DetalleAlmacenInsumo detalleAlmacenInsumo){
+        DBController.actualizarDetalleAlmacenInsumoEstado(detalleAlmacenInsumo);
+    }
+    
+    
     //DetalleAlmacenProducto
     @WebMethod(operationName = "insertarDetalleAlmacenProducto")
     public void insertarDetalleAlmacenProducto(@WebParam(name = "detalleAlmacenProducto") DetalleAlmacenProducto detalleAlmacenProducto){
@@ -112,19 +106,23 @@ public class Servicio {
     public ArrayList<DetalleAlmacenProducto> listarDetalleAlmacenProducto(@WebParam(name = "dato") String dato){
         return DBController.listarDetalleAlmacenProducto(dato);
     }
+    @WebMethod(operationName = "insertarDetalleAlmacenProductoPorOrden")
+    public void insertarDetalleAlmacenProductoPorOrden(@WebParam(name = "orden") OrdenProduccion orden){
+        DBController.insertarDetalleAlmacenProductoPorOrden(orden);
+    }
     //DetalleMaquinaria
     @WebMethod(operationName = "insertarDetalleMaquinaria")
-    public void insertarDetalleMaquinaria(@WebParam(name = "maquinaria") DetalleMaquinaria maquinaria,
+    public void insertarDetalleMaquinaria(@WebParam(name = "detMaquinaria") DetalleMaquinaria maquinaria,
             @WebParam(name="idPMP") int idPMP){
         DBController.insertarDetalleMaquinaria(maquinaria,idPMP);
     }
     @WebMethod(operationName = "actualizarDetalleMaquinaria")
-    public void actualizarDetalleMaquinaria(@WebParam(name = "maquinaria") DetalleMaquinaria maquinaria){        
-        DBController.actualizarDetalleMaquinaria(maquinaria);
+    public void actualizarDetalleMaquinaria(@WebParam(name = "detMaquinaria") DetalleMaquinaria detMaquinaria){        
+        DBController.actualizarDetalleMaquinaria(detMaquinaria);
     }
     @WebMethod(operationName = "eliminarDetalleMaquinaria")
-    public void eliminarDetalleMaquinaria(@WebParam(name = "idMaquinaria") int idMaq){        
-        DBController.eliminarDetalleMaquinaria(idMaq);
+    public void eliminarDetalleMaquinaria(@WebParam(name = "idDetMaquinaria") int idDetMaq){        
+        DBController.eliminarDetalleMaquinaria(idDetMaq);
     }
     @WebMethod(operationName = "listarDetalleMaquinaria")
     public ArrayList<DetalleMaquinaria> listarDetalleMaquinaria(@WebParam(name = "idPMP") int idPMP){
@@ -177,9 +175,8 @@ public class Servicio {
         DBController.insertarLineaOrden(lineaOrden,idOrden);
     }
     @WebMethod(operationName = "actualizarLineaOrden")
-    public void actualizarLineaOrden(@WebParam(name = "lineaOrden") LineaOrden lineaOrden,
-            @WebParam(name = "idOrden") int idOrden){
-        DBController.actualizarLineaOrden(lineaOrden,idOrden);
+    public void actualizarLineaOrden(@WebParam(name = "lineaOrden") LineaOrden lineaOrden){
+        DBController.actualizarLineaOrden(lineaOrden);
     }
     @WebMethod(operationName = "eliminarLineaOrden")
     public void eliminarLineaOrden(@WebParam(name = "idLineaOrden") int idLineaOrden){
@@ -212,8 +209,8 @@ public class Servicio {
     
     //Maquinaria
     @WebMethod(operationName = "insertarMaquinaria")
-    public void insertarMaquinaria(@WebParam(name = "maquinaria") Maquinaria maquinaria){
-        DBController.insertarMaquinaria(maquinaria);
+    public int insertarMaquinaria(@WebParam(name = "maquinaria") Maquinaria maquinaria){
+        return DBController.insertarMaquinaria(maquinaria);
     }
     @WebMethod(operationName = "actualizarMaquinaria")
     public void actualizarMaquinaria(@WebParam(name = "maquinaria") Maquinaria maquinaria){
@@ -292,8 +289,8 @@ public class Servicio {
     }
     
     @WebMethod(operationName = "listarPoliticaStock")
-    public ArrayList<PoliticaStock> listarPoliticaStock(){
-        return DBController.listarPoliticaStock();        
+    public ArrayList<PoliticaStock> listarPoliticaStock(@WebParam(name = "dato") String dato){
+        return DBController.listarPoliticaStock(dato);        
     }
     //Producto
     @WebMethod(operationName = "insertarProducto")
@@ -303,7 +300,7 @@ public class Servicio {
 
     @WebMethod(operationName = "actualizarProducto")
     public void actualizarProducto(@WebParam(name = "producto") Producto producto){
-        DBController.insertarProducto(producto);        
+        DBController.actualizarProducto(producto);        
     }
     @WebMethod(operationName = "eliminarProducto")
     public void eliminarProducto(@WebParam(name = "id") int id){

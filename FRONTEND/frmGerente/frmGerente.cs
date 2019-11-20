@@ -9,12 +9,25 @@ namespace LP2TECNOQUIMFRONT.frmGerente
     {
         Service.trabajador trabajador = new Service.trabajador();
         int close = 0;
+        int not = 0;
+        Service.ServicioClient DBController = new Service.ServicioClient();
         public frmGerente(int cont = 0, Service.trabajador trabajadors = null)
         {
             this.trabajador = trabajadors;
+            Service.mensaje[] mensajes = DBController.listarMensaje(trabajador.id);
+            if(mensajes !=null)
+            {
+                not = mensajes.Length;
+            }
             if (cont == 1)
             {
                 InitializeComponent();
+                lblCantNotificaciones.Visible = false;
+                if (not > 0)
+                {
+                    lblCantNotificaciones.Visible = true;
+                    lblCantNotificaciones.Text = not.ToString();
+                }
             }
             else if (cont == 2)
             {
@@ -37,6 +50,12 @@ namespace LP2TECNOQUIMFRONT.frmGerente
                 MessageBox.Show("Bienvenido/a " + trabajador.nombres + " " + trabajador.apellidos);
 
                 t.Abort();
+                lblCantNotificaciones.Visible = false;
+                if (not > 0)
+                {
+                    lblCantNotificaciones.Visible = true;
+                    lblCantNotificaciones.Text = not.ToString();
+                }
             }
         }
         public void SplashStart()
@@ -80,6 +99,19 @@ namespace LP2TECNOQUIMFRONT.frmGerente
         {
             frmGestionarEmpleado frmGestionarEmpleado = new frmGestionarEmpleado();
             frmGestionarEmpleado.Visible = true;
+        }
+
+        private void btnReporte_Click(object sender, EventArgs e)
+        {
+            frmResumen formRes = new frmResumen(this.trabajador);
+            formRes.Visible = true;
+            close = 1;
+            this.Close();
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

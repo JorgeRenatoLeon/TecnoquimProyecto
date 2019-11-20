@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lp2tecnoquim.config;
 
 import java.util.ArrayList;
 import lp2tecnoquim.model.*;
 
-/**
- *
- * @author alulab14
- */
 public abstract class DBController {
     
       private static final DAOFactory daoFactory = DAOFactory.getDAOFactory();
@@ -74,6 +65,14 @@ public abstract class DBController {
           return daoFactory.getDetalleAlmacenInsumoDAO().listar(dato);
       }
       
+      public static void actualizarDetalleAlmacenInsumoPorOrden(OrdenProduccion orden){
+          daoFactory.getDetalleAlmacenInsumoDAO().actualizarPorOrden(orden);
+      }
+      
+      public static void actualizarDetalleAlmacenInsumoEstado(DetalleAlmacenInsumo detalleAlmacenInsumo){
+          daoFactory.getDetalleAlmacenInsumoDAO().actualizarEstado(detalleAlmacenInsumo);
+      }
+      
       // DetalleAlmacenProducto
       
       public static void insertarDetalleAlmacenProducto(DetalleAlmacenProducto detalleAlmacenProducto){
@@ -90,6 +89,10 @@ public abstract class DBController {
       
       public static ArrayList<DetalleAlmacenProducto> listarDetalleAlmacenProducto(String dato){
           return daoFactory.getDetalleAlmacenProductoDAO().listar(dato);
+      }
+      
+      public static void insertarDetalleAlmacenProductoPorOrden(OrdenProduccion orden){
+          daoFactory.getDetalleAlmacenProductoDAO().insertarPorOrden(orden);
       }
       
       // DetalleMaquinaria
@@ -156,8 +159,8 @@ public abstract class DBController {
           daoFactory.getLineaOrdenDAO().insertar(lineaOrden, idOrden);
       }
       
-      public static void actualizarLineaOrden(LineaOrden lineaOrden, int idOrden){
-          daoFactory.getLineaOrdenDAO().actualizar(lineaOrden, idOrden);
+      public static void actualizarLineaOrden(LineaOrden lineaOrden){
+          daoFactory.getLineaOrdenDAO().actualizar(lineaOrden);
       }
       
       public static void eliminarLineaOrden(int idLineaOrden){
@@ -188,8 +191,8 @@ public abstract class DBController {
       
       // Maquinaria
       
-      public static void insertarMaquinaria(Maquinaria maquinaria){
-          daoFactory.getMaquinariaDAO().insertar(maquinaria);
+      public static int insertarMaquinaria(Maquinaria maquinaria){
+          return daoFactory.getMaquinariaDAO().insertar(maquinaria);
       }
       
       public static void actualizarMaquinaria(Maquinaria maquinaria){
@@ -276,8 +279,8 @@ public abstract class DBController {
           daoFactory.getPoliticaStockDAO().eliminar(idPoliticaStock);
       }
       
-      public static ArrayList<PoliticaStock> listarPoliticaStock(){
-          return daoFactory.getPoliticaStockDAO().listar();
+      public static ArrayList<PoliticaStock> listarPoliticaStock(String dato){
+          return daoFactory.getPoliticaStockDAO().listar(dato);
       }
       
       // Producto

@@ -70,7 +70,6 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             detMaquinarias = new BindingList<detalleMaquinaria>(DBController.listarDetalleMaquinaria(PMP.id));
             if (detMaquinarias != null)
             {
-                PMP.maquinarias = detMaquinarias.ToArray();
                 dgvMaquinaria.DataSource = detMaquinarias;
             }
             txtNOrden.Text = PMP.id.ToString();
@@ -95,12 +94,10 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     btnEditarOrden.Enabled = false;
                     btnBuscarMaquinaria.Enabled = false;
                     btnAgregarMaquinaria.Enabled = false;
-
                     // Etiquetas
                     lblCodigoMaquinaria.Enabled = false;
                     lblNombreMaquinaria.Enabled = false;
                     lblCodigoPMP.Enabled = false;
-
                     // Texto
                     txtCodigo.Enabled = false;
                     txtNombre.Enabled = false;
@@ -108,7 +105,8 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
 
                     // Calendario
                     calOrdenProduccion.Enabled = false;
-                    calOrdenProduccion.SetDate(new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 1));
+                    calOrdenProduccion.SetDate(
+                        new DateTime(DateTime.Now.AddMonths(1).Year, DateTime.Now.AddMonths(1).Month, 1));
 
                     // Data Grid View
                     dgvMaquinaria.Enabled = false;
@@ -288,7 +286,9 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             frmMaquinaria form = new frmMaquinaria();
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                det = form.DetalleMaquinariaSeleccionada;
+                det.fecha = DateTime.Now;
+                det.fechaSpecified = true;
+                det.maquinaria = form.MaquinariaSeleccionada;
                 txtCodigo.Text = det.maquinaria.id.ToString();
                 txtNombre.Text = det.maquinaria.nombre;
             }
@@ -332,7 +332,7 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                 }
                 foreach (detalleMaquinaria m in PMP.maquinarias)
                 {
-                    DBController.insertarDetalleMaquinaria(m,PMP.id);
+                    DBController.insertarDetalleMaquinaria(m, PMP.id);
                 }
                 mensaje.descripcion = "VALIDAR PMP";
                 mensaje.emisor = trabajador;
@@ -360,13 +360,13 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                         DBController.insertarLineaOrden(lo, o.id);
                     }
                 }
-                foreach (ordenProduccion o in PMP.ordenes)
+                foreach (ordenProduccion o in ordenesMod)
                 {
+                    DBController.actualizarOrdenProduccion(o,PMP.id);
                     if (o.lineasOrden != null)
                     {
                         foreach (lineaOrden lo in o.lineasOrden)
                         {
-                            DBController.eliminarLineaOrden(o.id);
                             DBController.insertarLineaOrden(lo, o.id);
                         }
                     }
@@ -510,6 +510,13 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
                     PMP.ordenes = ordenes.ToArray();
                     flagOrden = 0;
                 }
+                else
+                {
+                    if (formOrd.Flag == 1)
+                    {
+                        ordenesMod.Add(ordenSeleccionada);
+                    }
+                }
             }
         }
 
@@ -543,6 +550,17 @@ namespace LP2TECNOQUIMFRONT.frmJproduccion
             detMaquinarias = lineasElim;
             PMP.maquinarias = detMaquinarias.ToArray();
             dgvMaquinaria.DataSource = detMaquinarias;
+        }
+
+        private void dgvOrden_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            frmHistorialPMP form = new frmHistorialPMP();
+            form.ShowDialog(this);
         }
     }
 }

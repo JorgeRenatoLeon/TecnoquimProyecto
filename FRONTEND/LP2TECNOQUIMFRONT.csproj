@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,6 +70,12 @@
     </Compile>
     <Compile Include="frmGerente\frmGestionarEmpleado.Designer.cs">
       <DependentUpon>frmGestionarEmpleado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGerente\frmResumen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGerente\frmResumen.Designer.cs">
+      <DependentUpon>frmResumen.cs</DependentUpon>
     </Compile>
     <Compile Include="frmGerente\frmRevisarPlanMaestro.cs">
       <SubType>Form</SubType>
@@ -158,11 +167,23 @@
     <Compile Include="frmJAlmacen\frmStocksP.Designer.cs">
       <DependentUpon>frmStocksP.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmJControlCalidad\frmConsultas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJControlCalidad\frmConsultas.Designer.cs">
+      <DependentUpon>frmConsultas.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmJControlCalidad\frmControlCalidad.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmJControlCalidad\frmControlCalidad.designer.cs">
       <DependentUpon>frmControlCalidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmJControlCalidad\frmInstructivo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJControlCalidad\frmInstructivo.Designer.cs">
+      <DependentUpon>frmInstructivo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmJControlCalidad\frmListaInsumo.cs">
       <SubType>Form</SubType>
@@ -199,6 +220,12 @@
     </Compile>
     <Compile Include="frmJControlCalidad\frmPerfil.Designer.cs">
       <DependentUpon>frmPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmJControlCalidad\frmReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmJControlCalidad\frmReportes.Designer.cs">
+      <DependentUpon>frmReportes.cs</DependentUpon>
     </Compile>
     <Compile Include="frmJMaquinaria\frmJMaquinaria.cs">
       <SubType>Form</SubType>
@@ -271,12 +298,6 @@
     </Compile>
     <Compile Include="frmJproduccion\frmGestionarPlan.Designer.cs">
       <DependentUpon>frmGestionarPlan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmJproduccion\frmHistorialOrden.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmJproduccion\frmHistorialOrden.Designer.cs">
-      <DependentUpon>frmHistorialOrden.cs</DependentUpon>
     </Compile>
     <Compile Include="frmJproduccion\frmHistorialPMP.cs">
       <SubType>Form</SubType>
@@ -382,6 +403,9 @@
     <EmbeddedResource Include="frmGerente\frmBuscarEmpleado.resx">
       <DependentUpon>frmBuscarEmpleado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmGerente\frmResumen.resx">
+      <DependentUpon>frmResumen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmGerente\frmRevisarPlanMaestro.resx">
       <DependentUpon>frmRevisarPlanMaestro.cs</DependentUpon>
     </EmbeddedResource>
@@ -427,8 +451,14 @@
     <EmbeddedResource Include="frmJAlmacen\frmStocksP.resx">
       <DependentUpon>frmStocksP.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmJControlCalidad\frmConsultas.resx">
+      <DependentUpon>frmConsultas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmJControlCalidad\frmControlCalidad.resx">
       <DependentUpon>frmControlCalidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmJControlCalidad\frmInstructivo.resx">
+      <DependentUpon>frmInstructivo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmJControlCalidad\frmListaInsumo.resx">
       <DependentUpon>frmListaInsumo.cs</DependentUpon>
@@ -447,6 +477,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmJControlCalidad\frmPerfil.resx">
       <DependentUpon>frmPerfil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmJControlCalidad\frmReportes.resx">
+      <DependentUpon>frmReportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmJMaquinaria\frmJMaquinaria.resx">
       <DependentUpon>frmJMaquinaria.cs</DependentUpon>
@@ -483,9 +516,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmJproduccion\frmGestionarPlan.resx">
       <DependentUpon>frmGestionarPlan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmJproduccion\frmHistorialOrden.resx">
-      <DependentUpon>frmHistorialOrden.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmJproduccion\frmHistorialPMP.resx">
       <DependentUpon>frmHistorialPMP.cs</DependentUpon>
@@ -540,7 +570,14 @@
     <EmbeddedResource Include="frmPrincipal\frmSplash.resx">
       <DependentUpon>frmSplash.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.actualizarAlmacenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.actualizarDetalleAlmacenInsumoEstadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.actualizarDetalleAlmacenInsumoPorOrdenResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.actualizarDetalleAlmacenInsumoResponse.datasource">
@@ -627,7 +664,7 @@
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.eliminarProductoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.eliminarTrabajadorResponse1.datasource">
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.eliminarTrabajadorResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.enviarMensajeResponse.datasource">
@@ -639,13 +676,13 @@
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.generarReporteProductosRestringidosPDFResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.helloResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.insertarAlmacenResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.insertarDetalleAlmacenInsumoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.insertarDetalleAlmacenProductoPorOrdenResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.insertarDetalleAlmacenProductoResponse.datasource">
@@ -703,6 +740,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.insumo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.leerMensajeResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.lineaInsumo.datasource">
@@ -813,12 +853,8 @@
     <None Include="Connected Services\Service\LP2TECNOQUIMFRONT.Service.verificarUsuarioResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\Service\Servicio1.wsdl" />
-    <None Include="Connected Services\Service\Servicio1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Service\Servicio11.wsdl" />
-    <None Include="Connected Services\Service\Servicio11.xsd">
+    <None Include="Connected Services\Service\Servicio.wsdl" />
+    <None Include="Connected Services\Service\Servicio.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
@@ -861,6 +897,18 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\reply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background_11.wide.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\istockphoto-940818100-1024x1024.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document.png" />
+  </ItemGroup>
+  <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\Service\" />
   </ItemGroup>
   <ItemGroup>
@@ -874,18 +922,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\reply.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\background_11.wide.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\istockphoto-940818100-1024x1024.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\document.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
